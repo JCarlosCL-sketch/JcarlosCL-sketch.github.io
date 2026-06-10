@@ -257,10 +257,11 @@
   .open-hint {
     margin-top: 24px;
     font-family: 'Montserrat', sans-serif;
-    font-size: clamp(9pt, 2.7vw, 11pt);
+    font-size: clamp(10pt, 3vw, 12pt);
     letter-spacing: 4px;
     text-transform: uppercase;
     color: #fff;
+    font-weight: 700;
     animation: pulse 2s ease-in-out infinite;
     cursor: pointer;
     z-index: 10;
@@ -276,12 +277,13 @@
 
   .cover-title {
     font-family: 'Great Vibes', cursive;
-    font-size: var(--fs-cover-title);
+    font-size: clamp(34pt, 10vw, 48pt);
     color: var(--gold-light);
     text-shadow: 0 4px 12px rgba(60, 20, 30, 0.5);
     margin-bottom: 8px;
     z-index: 10;
     position: relative;
+    line-height: 1;
   }
 
   .cover-subtitle {
@@ -346,7 +348,7 @@
   .invocation {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    font-size: clamp(14pt, 4.4vw, 18pt);
+    font-size: clamp(16pt, 5.2vw, 20pt);
     line-height: 1.5;
     color: #fff;
     max-width: 95%;
@@ -755,8 +757,7 @@
     <div class="confetti-layer" data-confetti="40"></div>
 
     <div class="scene-content">
-      <div class="cover-title reveal d1">Estás Invitado</div>
-      <div class="cover-subtitle reveal d2">Cielito Lindo · Bautizo</div>
+      <div class="cover-title reveal d1">Estás<br>Invitado</div>
 
       <div class="envelope-wrap reveal-scale" id="envelopeWrap">
         <div class="envelope" id="envelope">
@@ -766,7 +767,7 @@
         </div>
       </div>
 
-      <div class="open-hint reveal d4" id="openHintBtn">⟶ Toca el sobre para abrir ⟵</div>
+      <div class="open-hint reveal d4" id="openHintBtn">⟶ Toca y abre el sobre ⟵</div>
     </div>
   </section>
 
@@ -777,7 +778,7 @@
     <div class="scene-content">
       <div class="reveal d1">
         <div class="invocation">
-          Con la bendición de Dios,<br>te invitamos al bautizo de
+          Acompáñanos a celebrar<br>el bautizo de nuestra hija
         </div>
       </div>
 
@@ -797,13 +798,13 @@
         <span class="charra-sparkle" style="top:40%; right:10%; animation-delay:-0.8s"></span>
       </div>
 
-      <div class="gold-divider reveal d6" style="margin-top:10px">
+      <div class="gold-divider reveal d6" style="margin-top:2px">
         <span class="line"></span><span class="diamond"></span><span class="line"></span>
       </div>
 
       <div class="quote reveal d6">
-        <em>"Como un cielito lindo llegaste a nuestras vidas,<br>
-        hoy el cielo te recibe con su bendición."</em>
+        <em>"Señor, hoy me presentan ante ti para ser bañada con la gracia de tu amor,<br>
+        Toma mi pequeño corazón en tus benditas manos, y jamás te separes de mi."</em>
       </div>
     </div>
 
