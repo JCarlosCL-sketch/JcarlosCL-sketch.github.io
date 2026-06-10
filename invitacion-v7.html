@@ -367,12 +367,18 @@
   .gold-divider .line { width: clamp(40px, 12vw, 60px); height: 1px; background: linear-gradient(90deg, transparent, var(--gold-light), transparent); }
   .gold-divider .diamond { width: 6px; height: 6px; background: var(--gold-light); transform: rotate(45deg); }
 
-  /* ============= CHARRITA (real image with movement) ============= */
+  /* ============= CHARRITA (real image with movement) =============
+     The source PNG is square but the figure only occupies the top ~65%
+     of the image — the bottom is empty/transparent space. We use
+     object-fit:cover + object-position:top so the empty bottom of the PNG
+     falls outside the (shorter) container, and only the charrita itself
+     is visible. */
   .charrita-img {
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
+    object-position: top center;
     background: transparent;
     filter: drop-shadow(0 6px 14px rgba(60, 20, 30, 0.35));
   }
@@ -778,6 +784,7 @@
     <div class="scene-content">
       <div class="reveal d1">
         <div class="invocation">
+          <br>
           Acompáñanos a celebrar<br>el bautizo de nuestra hija
         </div>
       </div>
@@ -786,7 +793,7 @@
       <div class="surname reveal d4" style="margin-top:6px">Camacho Bautista</div>
 
       <!-- The actual charrita image with dance animation -->
-      <div class="reveal-scale charra-spotlight" style="transition-delay:0.9s; width:clamp(160px, 50vw, 220px); aspect-ratio: 1; margin-top:14px; position:relative">
+      <div class="reveal-scale charra-spotlight" style="transition-delay:0.9s; width:clamp(160px, 50vw, 220px); aspect-ratio: 1 / 0.95; margin-top:6px; margin-bottom:-10px; position:relative">
         <div class="charra-wrap" style="width:100%; height:100%">
           <img src="charrita.png" alt="Charrita" class="charrita-img">
         </div>
@@ -953,7 +960,7 @@
       <div class="rsvp-phone reveal d4">📱 443 306 8739</div>
 
       <!-- Charrita again on RSVP, smaller -->
-      <div class="reveal-scale charra-spotlight" style="transition-delay:1s; width:clamp(120px, 35vw, 160px); aspect-ratio: 1; margin-top:20px; position:relative">
+      <div class="reveal-scale charra-spotlight" style="transition-delay:1s; width:clamp(120px, 35vw, 160px); aspect-ratio: 1 / 0.95; margin-top:14px; margin-bottom:-8px; position:relative">
         <div class="charra-wrap" style="width:100%; height:100%">
           <img src="charrita.png" alt="Charrita" class="charrita-img">
         </div>
@@ -996,16 +1003,16 @@
       ctx.drawImage(img, 0, 0);
       const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
       const data = imgData.data;
-      // Threshold: pixels with R, G, B all above 240 → fully transparent.
-      // Pixels between 200 and 240 → partial transparency for a smooth edge.
+      // Aggressive white removal: pixels with R, G, B all above 225 → fully
+      // transparent. Pixels between 180 and 225 → partial transparency for a
+      // smooth, halo-free edge against the rose floral background.
       for (let i = 0; i < data.length; i += 4) {
         const r = data[i], g = data[i + 1], b = data[i + 2];
         const minRGB = Math.min(r, g, b);
-        if (minRGB > 240) {
+        if (minRGB > 225) {
           data[i + 3] = 0;
-        } else if (minRGB > 210) {
-          data[i + 3] = Math.max(0, ((minRGB - 210) - (240 - minRGB)) * 8);
-          data[i + 3] = 255 - Math.round(((minRGB - 210) / 30) * 255);
+        } else if (minRGB > 180) {
+          data[i + 3] = 255 - Math.round(((minRGB - 180) / 45) * 255);
         }
       }
       ctx.putImageData(imgData, 0, 0);
