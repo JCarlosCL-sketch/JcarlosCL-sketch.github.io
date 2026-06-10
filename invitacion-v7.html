@@ -343,6 +343,16 @@
     text-shadow: 0 1px 3px rgba(60, 20, 30, 0.3);
   }
 
+   .quote2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    line-height: 1.5;
+    color: #fff;
+    max-width: 90%;
+    margin: 14px auto;
+    text-shadow: 0 1px 3px rgba(60, 20, 30, 0.3);
+  }
+
   /* Larger invocation line for the opening blessing — bigger than .quote so
      it reads cleanly on desktop and doesn't crowd on mobile. */
   .invocation {
@@ -808,7 +818,7 @@
         <span class="line"></span><span class="diamond"></span><span class="line"></span>
       </div>
 
-      <div class="quote reveal d6">
+      <div class="quote2 reveal d6">
         <em>"Señor, hoy me presentan ante ti para ser bañada con la gracia de tu amor. Toma mi pequeño corazón en tus benditas manos, y jamás te separes de mi."</em>
       </div>
     </div>
@@ -1144,18 +1154,62 @@
     }
   });
 
-  // Music
+  // ============= MUSIC =============
   const musicToggle = document.getElementById('musicToggle');
   const audio = document.getElementById('bgMusic');
+
+  // Track whether the user *intended* the music to be playing. We use this
+  // when the page becomes visible again to decide whether to resume.
+  let musicShouldPlay = false;
+
   musicToggle.addEventListener('click', () => {
     if (audio.paused) {
-      audio.play().then(() => musicToggle.classList.add('playing'))
-        .catch(() => alert('Coloca un archivo "cielito-lindo.mp3" junto a este HTML para activar la música.'));
+      audio.play().then(() => {
+        musicShouldPlay = true;
+        musicToggle.classList.add('playing');
+      }).catch(() => alert('Coloca un archivo "cielito-lindo.mp3" junto a este HTML para activar la música.'));
     } else {
+      musicShouldPlay = false;
       audio.pause();
       musicToggle.classList.remove('playing');
     }
   });
+
+  // The envelope-open handler also auto-plays the audio on first interaction.
+  // Mark the intent there too so the visibility/pagehide handlers know it
+  // should resume on return.
+  audio.addEventListener('play', () => { musicShouldPlay = true; });
+
+  // ============= AUTO-PAUSE WHEN USER LEAVES THE TAB / APP =============
+  // Pause music when the page is hidden (tab switch, app switch, screen lock,
+  // bfcache navigation). Resume on return only if the user had the music on.
+  function pauseMusicForVisibility() {
+    if (!audio.paused) {
+      audio.pause();
+      musicToggle.classList.remove('playing');
+    }
+  }
+
+  function resumeMusicIfWanted() {
+    if (musicShouldPlay && audio.paused) {
+      audio.play().then(() => musicToggle.classList.add('playing')).catch(() => {});
+    }
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') {
+      pauseMusicForVisibility();
+    } else if (document.visibilityState === 'visible') {
+      resumeMusicIfWanted();
+    }
+  });
+
+  // pagehide fires on iOS Safari when navigating away or putting the app in
+  // the background; visibilitychange isn't always reliable there.
+  window.addEventListener('pagehide', pauseMusicForVisibility);
+  window.addEventListener('blur', pauseMusicForVisibility);
+  window.addEventListener('focus', resumeMusicIfWanted);
+  window.addEventListener('pageshow', resumeMusicIfWanted);
 
   document.addEventListener('keydown', (e) => {
     const idx = getCurrentSceneIdx();
