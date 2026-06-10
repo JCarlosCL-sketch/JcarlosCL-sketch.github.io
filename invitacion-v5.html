@@ -1,0 +1,1829 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Bautizo Aria · Cielito Lindo</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Allura&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap');
+
+  :root {
+    --rose: #c96a6a;
+    --rose-soft: #e8a4a4;
+    --rose-deep: #a84e4e;
+    --rose-pale: #f5c4bd;
+    --gold: #c9a76a;
+    --gold-light: #e6c896;
+    --gold-deep: #a88450;
+    --cream: #fefaf5;
+    --cream-warm: #fce4d8;
+    --brown: #6b4a3e;
+    --brown-soft: #8b6a4a;
+
+    /* Fluid typography clamps — fluid between mobile and desktop */
+    --fs-script-name: clamp(56pt, 18vw, 84pt);
+    --fs-script-title: clamp(30pt, 10vw, 46pt);
+    --fs-cover-title: clamp(32pt, 9vw, 44pt);
+    --fs-quote: clamp(10.5pt, 3.2vw, 13pt);
+    --fs-eyebrow: clamp(8pt, 2.4vw, 10pt);
+    --fs-detail-place: clamp(12pt, 3.8vw, 14pt);
+    --fs-detail-address: clamp(9pt, 2.8vw, 10.5pt);
+    --fs-people-names: clamp(10.5pt, 3.2vw, 12pt);
+
+    --pad-x: clamp(24px, 7vw, 60px);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--brown);
+    background: var(--cream);
+  }
+
+  /* ============= SCROLL STAGE ============= */
+  .stage {
+    position: fixed;
+    inset: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .stage::-webkit-scrollbar { display: none; }
+  .stage { scrollbar-width: none; }
+
+  .scene {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh; /* mobile dynamic viewport */
+    min-height: 600px;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at top, var(--cream-warm) 0%, var(--cream) 55%, #f7d4c2 100%);
+  }
+
+  /* ============= FLORAL BORDER FRAME ============= */
+  .floral-frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    pointer-events: none;
+  }
+
+  .floral-frame svg { width: 100%; height: 100%; display: block; }
+
+  .floral-frame .bloom {
+    transform-origin: center;
+    animation: bloom-pulse 4s ease-in-out infinite;
+  }
+
+  .floral-frame .bloom:nth-child(odd) { animation-delay: -2s; }
+
+  @keyframes bloom-pulse {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.05); }
+  }
+
+  .scene-content {
+    position: relative;
+    z-index: 6;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(110px, 18vw, 140px) var(--pad-x);
+    text-align: center;
+  }
+
+  /* ============= PAPEL PICADO MULTICOLOR ============= */
+  .papel-picado-string {
+    position: absolute;
+    left: -5%;
+    width: 110%;
+    height: clamp(70px, 14vw, 100px);
+    z-index: 5;
+    pointer-events: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+  }
+
+  .papel-picado-string.top { top: 0; }
+  .papel-picado-string.bottom { top: auto; bottom: 0; transform: scaleY(-1); }
+
+  .pp-flag {
+    width: 11%;
+    height: 100%;
+    transform-origin: top center;
+    animation: sway 3s ease-in-out infinite;
+  }
+
+  .pp-flag:nth-child(odd)  { animation-delay: -1.2s; }
+  .pp-flag:nth-child(3n)   { animation-delay: -0.6s; }
+  .pp-flag:nth-child(4n)   { animation-delay: -1.8s; }
+  .pp-flag:nth-child(5n)   { animation-delay: -2.4s; }
+
+  @keyframes sway {
+    0%, 100% { transform: rotate(-4deg); }
+    50%      { transform: rotate(4deg); }
+  }
+
+  .pp-flag svg {
+    width: 100%; height: 100%; display: block;
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.15));
+  }
+
+  /* ============= FLOATING PETALS ============= */
+  .petals {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 3;
+    overflow: hidden;
+  }
+
+  .petal {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50% 0 50% 50%;
+    background: radial-gradient(circle at 30% 30%, #fbd5d0, #e8a4a4 70%, #d97a7a);
+    opacity: 0;
+    animation: fall linear infinite;
+    box-shadow: 0 1px 3px rgba(180, 80, 80, 0.15);
+  }
+
+  @keyframes fall {
+    0%   { transform: translate(0, -10vh) rotate(0deg);   opacity: 0; }
+    10%  { opacity: 0.85; }
+    100% { transform: translate(40px, 110vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* ============= DECORATIVE ELEMENTS (CACTUS, PIÑATA, CHARRITA) ============= */
+  .deco {
+    position: absolute;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .deco svg { width: 100%; height: 100%; display: block; }
+
+  .pinata-swing {
+    animation: pinata-swing 4s ease-in-out infinite;
+    transform-origin: top center;
+  }
+
+  @keyframes pinata-swing {
+    0%, 100% { transform: rotate(-7deg); }
+    50%      { transform: rotate(7deg); }
+  }
+
+  .charra-float {
+    animation: charra-float 5s ease-in-out infinite;
+  }
+
+  @keyframes charra-float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-8px) rotate(1deg); }
+  }
+
+  .cactus-sway {
+    animation: cactus-sway 6s ease-in-out infinite;
+    transform-origin: bottom center;
+  }
+
+  @keyframes cactus-sway {
+    0%, 100% { transform: rotate(-1.5deg); }
+    50%      { transform: rotate(1.5deg); }
+  }
+
+  /* ============= ENTRANCE ANIMATIONS ============= */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .scene.active .reveal { opacity: 1; transform: translateY(0); }
+  .scene.active .d1  { transition-delay: 0.15s; }
+  .scene.active .d2  { transition-delay: 0.35s; }
+  .scene.active .d3  { transition-delay: 0.55s; }
+  .scene.active .d4  { transition-delay: 0.75s; }
+  .scene.active .d5  { transition-delay: 0.95s; }
+  .scene.active .d6  { transition-delay: 1.15s; }
+
+  .reveal-scale { opacity: 0; transform: scale(0.85); transition: opacity 1s ease, transform 1s ease; }
+  .scene.active .reveal-scale { opacity: 1; transform: scale(1); }
+
+  /* ============= COVER ============= */
+  .cover {
+    background:
+      radial-gradient(ellipse at center, var(--cream-warm) 0%, #f3b8a8 70%, var(--rose) 100%);
+  }
+
+  .envelope-wrap {
+    position: relative;
+    perspective: 1200px;
+    cursor: pointer;
+    z-index: 10;
+    padding: 20px;
+  }
+
+  .envelope {
+    position: relative;
+    width: clamp(200px, 60vw, 240px);
+    height: clamp(135px, 40vw, 160px);
+    background: #f4d9c1;
+    border: 2px solid var(--gold);
+    border-radius: 8px;
+    box-shadow: 0 12px 30px rgba(150, 80, 80, 0.25);
+    transition: transform 0.3s ease;
+    pointer-events: none;
+  }
+
+  .envelope-wrap:hover .envelope { transform: translateY(-3px); }
+
+  .envelope::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #fce4d2, #f4b896);
+    border-radius: 6px;
+    opacity: 0.6;
+  }
+
+  .envelope-flap {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: calc(100% + 4px);
+    height: 56%;
+    background: linear-gradient(180deg, var(--rose), var(--rose-deep));
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top;
+    transition: transform 0.8s cubic-bezier(.4, 0, .2, 1);
+    z-index: 2;
+  }
+
+  .envelope.open .envelope-flap { transform: rotateX(180deg); }
+
+  .envelope-seal {
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(48px, 14vw, 56px);
+    height: clamp(48px, 14vw, 56px);
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, var(--gold-light), var(--gold), var(--gold-deep));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(22pt, 7vw, 28pt);
+    z-index: 3;
+    box-shadow: 0 4px 10px rgba(140, 100, 50, 0.4);
+    transition: opacity 0.4s ease;
+  }
+
+  .envelope.open .envelope-seal { opacity: 0; }
+
+  .envelope-letter {
+    position: absolute;
+    top: 16%;
+    left: 50%;
+    transform: translateX(-50%) translateY(0);
+    width: 84%;
+    height: 70%;
+    background: #fff8ee;
+    border: 1px solid var(--gold-light);
+    border-radius: 4px;
+    z-index: 1;
+    transition: transform 1s cubic-bezier(.4, 0, .2, 1) 0.4s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(16pt, 5vw, 20pt);
+    color: var(--rose);
+  }
+
+  .envelope.open .envelope-letter {
+    transform: translateX(-50%) translateY(-90px);
+  }
+
+  .open-hint {
+    margin-top: 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(9pt, 2.7vw, 11pt);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #fff;
+    animation: pulse 2s ease-in-out infinite;
+    cursor: pointer;
+    z-index: 10;
+    position: relative;
+    text-shadow: 0 2px 6px rgba(140, 60, 60, 0.3);
+    padding: 0 16px;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.7; transform: translateY(0); }
+    50%      { opacity: 1;   transform: translateY(-4px); }
+  }
+
+  .cover-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: var(--fs-cover-title);
+    color: #fff;
+    text-shadow: 0 4px 12px rgba(140, 60, 60, 0.4);
+    margin-bottom: 8px;
+    z-index: 10;
+    position: relative;
+  }
+
+  .cover-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(8pt, 2.4vw, 9pt);
+    letter-spacing: clamp(3px, 1.5vw, 6px);
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 32px;
+    opacity: 0.95;
+    z-index: 10;
+    position: relative;
+  }
+
+  /* ============= TYPOGRAPHY ============= */
+  .eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-size: var(--fs-eyebrow);
+    letter-spacing: clamp(3px, 1.2vw, 5px);
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+  }
+
+  .script-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: var(--fs-script-title);
+    color: var(--rose);
+    line-height: 0.9;
+    text-shadow: 0 2px 6px rgba(180, 80, 80, 0.15);
+  }
+
+  .script-name {
+    font-family: 'Allura', cursive;
+    font-size: var(--fs-script-name);
+    color: var(--rose);
+    line-height: 0.8;
+    text-shadow: 0 4px 14px rgba(180, 80, 80, 0.18);
+  }
+
+  .surname {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(9pt, 2.8vw, 11pt);
+    letter-spacing: clamp(4px, 2vw, 8px);
+    text-transform: uppercase;
+    color: var(--brown-soft);
+  }
+
+  .quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: var(--fs-quote);
+    line-height: 1.5;
+    color: var(--brown);
+    max-width: 90%;
+    margin: 14px auto;
+  }
+
+  .gold-divider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0;
+  }
+  .gold-divider .line { width: clamp(40px, 12vw, 60px); height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .gold-divider .diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); }
+
+  /* ============= COUNTDOWN ============= */
+  .countdown {
+    display: flex;
+    gap: clamp(4px, 1.5vw, 10px);
+    margin-top: 18px;
+    flex-wrap: nowrap;
+  }
+
+  .count-cell {
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid var(--gold-light);
+    border-radius: 10px;
+    padding: clamp(8px, 2vw, 10px) clamp(6px, 2vw, 12px);
+    min-width: clamp(48px, 14vw, 64px);
+    box-shadow: 0 2px 8px rgba(180, 140, 80, 0.15);
+    backdrop-filter: blur(4px);
+  }
+
+  .count-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20pt, 6.5vw, 26pt);
+    font-weight: 600;
+    color: var(--rose);
+    line-height: 1;
+  }
+
+  .count-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(6pt, 1.8vw, 7pt);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--brown-soft);
+    margin-top: 4px;
+  }
+
+  /* ============= DETAIL CARDS ============= */
+  .detail-card {
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid #e8c4b4;
+    border-radius: 14px;
+    padding: clamp(14px, 4vw, 18px) clamp(16px, 4.5vw, 22px);
+    max-width: min(320px, 90%);
+    margin: 6px auto;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 4px 14px rgba(180, 100, 80, 0.1);
+  }
+
+  .detail-icon-circle {
+    width: clamp(40px, 11vw, 48px);
+    height: clamp(40px, 11vw, 48px);
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: clamp(16pt, 5vw, 20pt);
+    margin-bottom: 8px;
+    box-shadow: 0 4px 10px rgba(180, 80, 80, 0.25);
+  }
+
+  .detail-section-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(7pt, 2.1vw, 7.5pt);
+    letter-spacing: clamp(2px, 1vw, 4px);
+    text-transform: uppercase;
+    color: var(--rose);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .detail-place {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: var(--fs-detail-place);
+    font-weight: 600;
+    color: var(--brown);
+    margin-bottom: 4px;
+  }
+
+  .detail-address {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: var(--fs-detail-address);
+    font-style: italic;
+    color: var(--brown-soft);
+    line-height: 1.4;
+    margin-bottom: 10px;
+  }
+
+  .map-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: clamp(9px, 2.5vw, 11px) clamp(16px, 5vw, 22px);
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(8pt, 2.4vw, 9pt);
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(180, 140, 80, 0.3);
+    transition: transform 0.3s ease;
+    min-height: 44px;
+  }
+
+  .map-btn:hover, .map-btn:active { transform: translateY(-2px); }
+  .map-btn svg { width: 14px; height: 14px; fill: #fff; }
+
+  /* ============= PEOPLE ============= */
+  .people-row {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 2.5vw, 14px);
+    margin-top: 12px;
+    width: 100%;
+    max-width: min(320px, 92%);
+  }
+
+  .people-block {
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid #e8c4b4;
+    border-radius: 14px;
+    padding: clamp(11px, 3vw, 14px);
+    text-align: center;
+    backdrop-filter: blur(6px);
+  }
+
+  .people-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(7pt, 2.1vw, 8pt);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .people-names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: var(--fs-people-names);
+    color: var(--brown);
+    line-height: 1.4;
+  }
+
+  .people-amp {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(18pt, 5.5vw, 22pt);
+    color: var(--rose);
+    display: block;
+    line-height: 0.8;
+    margin: 2px 0;
+  }
+
+  /* ============= RSVP / WHATSAPP ============= */
+  .rsvp-deadline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(10pt, 3vw, 11pt);
+    color: var(--brown);
+    margin: 12px 0 18px;
+  }
+
+  .rsvp-deadline strong {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--rose);
+  }
+
+  .whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: clamp(11px, 3vw, 14px) clamp(20px, 5.5vw, 28px);
+    background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+    border: none;
+    border-radius: 999px;
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(20, 130, 100, 0.35);
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(9pt, 2.7vw, 10pt);
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    animation: wa-pulse 2.5s ease-in-out infinite;
+    min-height: 44px;
+  }
+
+  .whatsapp-btn svg { width: 18px; height: 18px; fill: #fff; }
+  .whatsapp-btn .tap-icon {
+    width: 14px;
+    height: 14px;
+    margin-left: 2px;
+    animation: tap-bounce 1.4s ease-in-out infinite;
+  }
+
+  @keyframes wa-pulse {
+    0%, 100% { box-shadow: 0 6px 18px rgba(20, 130, 100, 0.35); transform: scale(1); }
+    50%      { box-shadow: 0 8px 24px rgba(20, 130, 100, 0.55); transform: scale(1.04); }
+  }
+
+  @keyframes tap-bounce {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-3px) rotate(-8deg); }
+  }
+
+  .rsvp-phone {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(9pt, 2.7vw, 10pt);
+    color: var(--brown-soft);
+    margin-top: 14px;
+    letter-spacing: 1px;
+  }
+
+  /* ============= NAV / SCROLL HINT ============= */
+  .scroll-hint {
+    position: absolute;
+    bottom: clamp(70px, 14vw, 100px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    color: var(--rose);
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(7pt, 2.1vw, 8pt);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    text-align: center;
+    animation: bounce 2s ease-in-out infinite;
+    cursor: pointer;
+    user-select: none;
+    padding: 9px 18px;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid var(--gold-light);
+    border-radius: 999px;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 10px rgba(180, 140, 80, 0.15);
+    min-height: 44px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .scroll-hint .arrow {
+    margin: 4px auto 0;
+    width: 14px;
+    height: 14px;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.95; }
+    50%      { transform: translateX(-50%) translateY(8px); opacity: 1; }
+  }
+
+  /* Music toggle */
+  .music-toggle {
+    position: fixed;
+    top: max(14px, env(safe-area-inset-top));
+    right: 14px;
+    z-index: 100;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(180, 140, 80, 0.2);
+  }
+
+  .music-toggle svg { width: 22px; height: 22px; fill: var(--rose); }
+  .music-toggle.playing svg { animation: spin 4s linear infinite; }
+
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  /* Section indicator dots — hide on small screens */
+  .nav-dots {
+    position: fixed;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  @media (max-width: 480px) { .nav-dots { display: none; } }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(201, 106, 106, 0.3);
+    border: 1px solid var(--rose);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .dot.active { background: var(--rose); transform: scale(1.4); }
+
+  /* Cross icon */
+  .cross-icon {
+    font-size: clamp(26pt, 8vw, 32pt);
+    color: var(--gold);
+    line-height: 1;
+    margin: 6px 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============= REUSABLE SVG SYMBOLS ============= -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- ====== FLORAL FRAME (Mexican papel picado floral border) ====== -->
+    <symbol id="floral-border" viewBox="0 0 750 1000" preserveAspectRatio="none">
+      <g fill="currentColor">
+        <!-- TOP CENTER FLORAL ARRANGEMENT -->
+        <g transform="translate(290, 130)"><g class="bloom">
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(45)"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(90)"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(135)"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(180)"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(225)"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(270)"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(315)"/>
+          <circle r="14"/><circle r="9" fill="var(--bg-color, #fefaf5)"/><circle r="4"/>
+        </g></g>
+        <g transform="translate(380, 120)"><g class="bloom">
+          <path d="M 0 -52 Q -12 -32 -10 -12 Q 0 -6 10 -12 Q 12 -32 0 -52 Z"/>
+          <path d="M 0 -52 Q -12 -32 -10 -12 Q 0 -6 10 -12 Q 12 -32 0 -52 Z" transform="rotate(45)"/>
+          <path d="M 0 -52 Q -12 -32 -10 -12 Q 0 -6 10 -12 Q 12 -32 0 -52 Z" transform="rotate(90)"/>
+          <path d="M 0 -52 Q -12 -32 -10 -12 Q 0 -6 10 -12 Q 12 -32 0 -52 Z" transform="rotate(135)"/>
+          <path d="M 0 -52 Q -12 -32 -10 -12 Q 0 -6 10 -12 Q 12 -32 0 -52 Z" transform="rotate(180)"/>
+          <path d="M 0 -52 Q -12 -32 -10 -12 Q 0 -6 10 -12 Q 12 -32 0 -52 Z" transform="rotate(225)"/>
+          <path d="M 0 -52 Q -12 -32 -10 -12 Q 0 -6 10 -12 Q 12 -32 0 -52 Z" transform="rotate(270)"/>
+          <path d="M 0 -52 Q -12 -32 -10 -12 Q 0 -6 10 -12 Q 12 -32 0 -52 Z" transform="rotate(315)"/>
+          <circle r="18"/><circle r="11" fill="var(--bg-color, #fefaf5)"/><circle r="5"/>
+        </g></g>
+        <g transform="translate(470, 130)"><g class="bloom">
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(45)"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(90)"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(135)"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(180)"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(225)"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(270)"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(315)"/>
+          <circle r="14"/><circle r="9" fill="var(--bg-color, #fefaf5)"/><circle r="4"/>
+        </g></g>
+
+        <path d="M 280 130 Q 220 110 170 130 Q 130 145 100 130 Q 70 115 50 130 Q 35 142 25 135 Q 18 130 22 122 Q 30 110 50 110 Q 80 100 110 105 Q 150 100 200 95 Q 250 95 280 105 Z"/>
+        <path d="M 480 130 Q 540 110 590 130 Q 630 145 660 130 Q 690 115 710 130 Q 725 142 735 135 Q 742 130 738 122 Q 730 110 710 110 Q 680 100 650 105 Q 610 100 560 95 Q 510 95 480 105 Z"/>
+        <g>
+          <ellipse cx="100" cy="80" rx="6" ry="14" transform="rotate(-25 100 80)"/>
+          <ellipse cx="135" cy="70" rx="5" ry="12" transform="rotate(-15 135 70)"/>
+          <ellipse cx="175" cy="65" rx="5" ry="11" transform="rotate(-5 175 65)"/>
+          <ellipse cx="215" cy="62" rx="5" ry="11" transform="rotate(5 215 62)"/>
+          <ellipse cx="255" cy="65" rx="5" ry="11" transform="rotate(15 255 65)"/>
+          <ellipse cx="495" cy="65" rx="5" ry="11" transform="rotate(-15 495 65)"/>
+          <ellipse cx="535" cy="62" rx="5" ry="11" transform="rotate(-5 535 62)"/>
+          <ellipse cx="575" cy="65" rx="5" ry="11" transform="rotate(5 575 65)"/>
+          <ellipse cx="615" cy="70" rx="5" ry="12" transform="rotate(15 615 70)"/>
+          <ellipse cx="650" cy="80" rx="6" ry="14" transform="rotate(25 650 80)"/>
+        </g>
+        <g transform="translate(75, 165)"><g class="bloom">
+          <ellipse cx="0" cy="-15" rx="5" ry="10"/>
+          <ellipse cx="0" cy="-15" rx="5" ry="10" transform="rotate(72)"/>
+          <ellipse cx="0" cy="-15" rx="5" ry="10" transform="rotate(144)"/>
+          <ellipse cx="0" cy="-15" rx="5" ry="10" transform="rotate(216)"/>
+          <ellipse cx="0" cy="-15" rx="5" ry="10" transform="rotate(288)"/>
+          <circle r="5"/>
+        </g></g>
+        <g transform="translate(675, 165)"><g class="bloom">
+          <ellipse cx="0" cy="-15" rx="5" ry="10"/>
+          <ellipse cx="0" cy="-15" rx="5" ry="10" transform="rotate(72)"/>
+          <ellipse cx="0" cy="-15" rx="5" ry="10" transform="rotate(144)"/>
+          <ellipse cx="0" cy="-15" rx="5" ry="10" transform="rotate(216)"/>
+          <ellipse cx="0" cy="-15" rx="5" ry="10" transform="rotate(288)"/>
+          <circle r="5"/>
+        </g></g>
+
+        <path d="M 0 0 L 40 0 L 0 40 Z"/>
+        <path d="M 750 0 L 710 0 L 750 40 Z"/>
+        <circle cx="20" cy="20" r="3" fill="var(--bg-color, #fefaf5)"/>
+        <circle cx="730" cy="20" r="3" fill="var(--bg-color, #fefaf5)"/>
+
+        <!-- LEFT/RIGHT SIDE BORDERS -->
+        <g transform="translate(45, 380)"><g class="bloom">
+          <path d="M 0 -32 Q -8 -18 -6 -8 Q 0 -4 6 -8 Q 8 -18 0 -32 Z"/>
+          <path d="M 0 -32 Q -8 -18 -6 -8 Q 0 -4 6 -8 Q 8 -18 0 -32 Z" transform="rotate(60)"/>
+          <path d="M 0 -32 Q -8 -18 -6 -8 Q 0 -4 6 -8 Q 8 -18 0 -32 Z" transform="rotate(120)"/>
+          <path d="M 0 -32 Q -8 -18 -6 -8 Q 0 -4 6 -8 Q 8 -18 0 -32 Z" transform="rotate(180)"/>
+          <path d="M 0 -32 Q -8 -18 -6 -8 Q 0 -4 6 -8 Q 8 -18 0 -32 Z" transform="rotate(240)"/>
+          <path d="M 0 -32 Q -8 -18 -6 -8 Q 0 -4 6 -8 Q 8 -18 0 -32 Z" transform="rotate(300)"/>
+          <circle r="10"/><circle r="6" fill="var(--bg-color, #fefaf5)"/><circle r="3"/>
+        </g></g>
+        <g transform="translate(35, 280)"><g class="bloom">
+          <ellipse cx="0" cy="-14" rx="4" ry="9"/>
+          <ellipse cx="0" cy="-14" rx="4" ry="9" transform="rotate(72)"/>
+          <ellipse cx="0" cy="-14" rx="4" ry="9" transform="rotate(144)"/>
+          <ellipse cx="0" cy="-14" rx="4" ry="9" transform="rotate(216)"/>
+          <ellipse cx="0" cy="-14" rx="4" ry="9" transform="rotate(288)"/>
+          <circle r="4"/>
+        </g></g>
+        <g transform="translate(35, 480)"><g class="bloom">
+          <ellipse cx="0" cy="-14" rx="4" ry="9"/>
+          <ellipse cx="0" cy="-14" rx="4" ry="9" transform="rotate(72)"/>
+          <ellipse cx="0" cy="-14" rx="4" ry="9" transform="rotate(144)"/>
+          <ellipse cx="0" cy="-14" rx="4" ry="9" transform="rotate(216)"/>
+          <ellipse cx="0" cy="-14" rx="4" ry="9" transform="rotate(288)"/>
+          <circle r="4"/>
+        </g></g>
+        <g transform="translate(35, 600)"><g class="bloom">
+          <ellipse cx="0" cy="-14" rx="4" ry="9"/>
+          <ellipse cx="0" cy="-14" rx="4" ry="9" transform="rotate(72)"/>
+          <ellipse cx="0" cy="-14" rx="4" ry="9" transform="rotate(144)"/>
+          <ellipse cx="0" cy="-14" rx="4" ry="9" transform="rotate(216)"/>
+          <ellipse cx="0" cy="-14" rx="4" ry="9" transform="rotate(288)"/>
+          <circle r="4"/>
+        </g></g>
+        <ellipse cx="50" cy="220" rx="4" ry="10" transform="rotate(-15 50 220)"/>
+        <ellipse cx="40" cy="245" rx="3" ry="8" transform="rotate(20 40 245)"/>
+        <ellipse cx="50" cy="320" rx="4" ry="10"/>
+        <ellipse cx="60" cy="345" rx="3" ry="8" transform="rotate(-20 60 345)"/>
+        <ellipse cx="50" cy="430" rx="4" ry="10"/>
+        <ellipse cx="60" cy="455" rx="3" ry="8" transform="rotate(-20 60 455)"/>
+        <ellipse cx="50" cy="540" rx="4" ry="10"/>
+        <ellipse cx="60" cy="565" rx="3" ry="8" transform="rotate(-20 60 565)"/>
+        <ellipse cx="50" cy="650" rx="4" ry="10"/>
+
+        <g transform="translate(705, 380)"><g class="bloom">
+          <path d="M 0 -32 Q -8 -18 -6 -8 Q 0 -4 6 -8 Q 8 -18 0 -32 Z"/>
+          <path d="M 0 -32 Q -8 -18 -6 -8 Q 0 -4 6 -8 Q 8 -18 0 -32 Z" transform="rotate(60)"/>
+          <path d="M 0 -32 Q -8 -18 -6 -8 Q 0 -4 6 -8 Q 8 -18 0 -32 Z" transform="rotate(120)"/>
+          <path d="M 0 -32 Q -8 -18 -6 -8 Q 0 -4 6 -8 Q 8 -18 0 -32 Z" transform="rotate(180)"/>
+          <path d="M 0 -32 Q -8 -18 -6 -8 Q 0 -4 6 -8 Q 8 -18 0 -32 Z" transform="rotate(240)"/>
+          <path d="M 0 -32 Q -8 -18 -6 -8 Q 0 -4 6 -8 Q 8 -18 0 -32 Z" transform="rotate(300)"/>
+          <circle r="10"/><circle r="6" fill="var(--bg-color, #fefaf5)"/><circle r="3"/>
+        </g></g>
+        <g transform="translate(715, 280)"><g class="bloom">
+          <ellipse cx="0" cy="-14" rx="4" ry="9"/>
+          <ellipse cx="0" cy="-14" rx="4" ry="9" transform="rotate(72)"/>
+          <ellipse cx="0" cy="-14" rx="4" ry="9" transform="rotate(144)"/>
+          <ellipse cx="0" cy="-14" rx="4" ry="9" transform="rotate(216)"/>
+          <ellipse cx="0" cy="-14" rx="4" ry="9" transform="rotate(288)"/>
+          <circle r="4"/>
+        </g></g>
+        <g transform="translate(715, 480)"><g class="bloom">
+          <ellipse cx="0" cy="-14" rx="4" ry="9"/>
+          <ellipse cx="0" cy="-14" rx="4" ry="9" transform="rotate(72)"/>
+          <ellipse cx="0" cy="-14" rx="4" ry="9" transform="rotate(144)"/>
+          <ellipse cx="0" cy="-14" rx="4" ry="9" transform="rotate(216)"/>
+          <ellipse cx="0" cy="-14" rx="4" ry="9" transform="rotate(288)"/>
+          <circle r="4"/>
+        </g></g>
+        <g transform="translate(715, 600)"><g class="bloom">
+          <ellipse cx="0" cy="-14" rx="4" ry="9"/>
+          <ellipse cx="0" cy="-14" rx="4" ry="9" transform="rotate(72)"/>
+          <ellipse cx="0" cy="-14" rx="4" ry="9" transform="rotate(144)"/>
+          <ellipse cx="0" cy="-14" rx="4" ry="9" transform="rotate(216)"/>
+          <ellipse cx="0" cy="-14" rx="4" ry="9" transform="rotate(288)"/>
+          <circle r="4"/>
+        </g></g>
+        <ellipse cx="700" cy="220" rx="4" ry="10" transform="rotate(15 700 220)"/>
+        <ellipse cx="710" cy="245" rx="3" ry="8" transform="rotate(-20 710 245)"/>
+        <ellipse cx="700" cy="320" rx="4" ry="10"/>
+        <ellipse cx="690" cy="345" rx="3" ry="8" transform="rotate(20 690 345)"/>
+        <ellipse cx="700" cy="430" rx="4" ry="10"/>
+        <ellipse cx="690" cy="455" rx="3" ry="8" transform="rotate(20 690 455)"/>
+        <ellipse cx="700" cy="540" rx="4" ry="10"/>
+        <ellipse cx="690" cy="565" rx="3" ry="8" transform="rotate(20 690 565)"/>
+        <ellipse cx="700" cy="650" rx="4" ry="10"/>
+
+        <!-- BOTTOM CENTER FLORAL ARRANGEMENT -->
+        <g transform="translate(290, 870)"><g class="bloom">
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(45)"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(90)"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(135)"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(180)"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(225)"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(270)"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(315)"/>
+          <circle r="14"/><circle r="9" fill="var(--bg-color, #fefaf5)"/><circle r="4"/>
+        </g></g>
+        <g transform="translate(380, 880)"><g class="bloom">
+          <path d="M 0 -52 Q -12 -32 -10 -12 Q 0 -6 10 -12 Q 12 -32 0 -52 Z"/>
+          <path d="M 0 -52 Q -12 -32 -10 -12 Q 0 -6 10 -12 Q 12 -32 0 -52 Z" transform="rotate(45)"/>
+          <path d="M 0 -52 Q -12 -32 -10 -12 Q 0 -6 10 -12 Q 12 -32 0 -52 Z" transform="rotate(90)"/>
+          <path d="M 0 -52 Q -12 -32 -10 -12 Q 0 -6 10 -12 Q 12 -32 0 -52 Z" transform="rotate(135)"/>
+          <path d="M 0 -52 Q -12 -32 -10 -12 Q 0 -6 10 -12 Q 12 -32 0 -52 Z" transform="rotate(180)"/>
+          <path d="M 0 -52 Q -12 -32 -10 -12 Q 0 -6 10 -12 Q 12 -32 0 -52 Z" transform="rotate(225)"/>
+          <path d="M 0 -52 Q -12 -32 -10 -12 Q 0 -6 10 -12 Q 12 -32 0 -52 Z" transform="rotate(270)"/>
+          <path d="M 0 -52 Q -12 -32 -10 -12 Q 0 -6 10 -12 Q 12 -32 0 -52 Z" transform="rotate(315)"/>
+          <circle r="18"/><circle r="11" fill="var(--bg-color, #fefaf5)"/><circle r="5"/>
+        </g></g>
+        <g transform="translate(470, 870)"><g class="bloom">
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(45)"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(90)"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(135)"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(180)"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(225)"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(270)"/>
+          <path d="M 0 -42 Q -10 -25 -8 -10 Q 0 -5 8 -10 Q 10 -25 0 -42 Z" transform="rotate(315)"/>
+          <circle r="14"/><circle r="9" fill="var(--bg-color, #fefaf5)"/><circle r="4"/>
+        </g></g>
+
+        <path d="M 280 870 Q 220 890 170 870 Q 130 855 100 870 Q 70 885 50 870 Q 35 858 25 865 Q 18 870 22 878 Q 30 890 50 890 Q 80 900 110 895 Q 150 900 200 905 Q 250 905 280 895 Z"/>
+        <path d="M 480 870 Q 540 890 590 870 Q 630 855 660 870 Q 690 885 710 870 Q 725 858 735 865 Q 742 870 738 878 Q 730 890 710 890 Q 680 900 650 895 Q 610 900 560 905 Q 510 905 480 895 Z"/>
+        <g>
+          <ellipse cx="100" cy="920" rx="6" ry="14" transform="rotate(25 100 920)"/>
+          <ellipse cx="135" cy="930" rx="5" ry="12" transform="rotate(15 135 930)"/>
+          <ellipse cx="175" cy="935" rx="5" ry="11" transform="rotate(5 175 935)"/>
+          <ellipse cx="215" cy="938" rx="5" ry="11" transform="rotate(-5 215 938)"/>
+          <ellipse cx="255" cy="935" rx="5" ry="11" transform="rotate(-15 255 935)"/>
+          <ellipse cx="495" cy="935" rx="5" ry="11" transform="rotate(15 495 935)"/>
+          <ellipse cx="535" cy="938" rx="5" ry="11" transform="rotate(5 535 938)"/>
+          <ellipse cx="575" cy="935" rx="5" ry="11" transform="rotate(-5 575 935)"/>
+          <ellipse cx="615" cy="930" rx="5" ry="12" transform="rotate(-15 615 930)"/>
+          <ellipse cx="650" cy="920" rx="6" ry="14" transform="rotate(-25 650 920)"/>
+        </g>
+        <g transform="translate(75, 835)"><g class="bloom">
+          <ellipse cx="0" cy="-15" rx="5" ry="10"/>
+          <ellipse cx="0" cy="-15" rx="5" ry="10" transform="rotate(72)"/>
+          <ellipse cx="0" cy="-15" rx="5" ry="10" transform="rotate(144)"/>
+          <ellipse cx="0" cy="-15" rx="5" ry="10" transform="rotate(216)"/>
+          <ellipse cx="0" cy="-15" rx="5" ry="10" transform="rotate(288)"/>
+          <circle r="5"/>
+        </g></g>
+        <g transform="translate(675, 835)"><g class="bloom">
+          <ellipse cx="0" cy="-15" rx="5" ry="10"/>
+          <ellipse cx="0" cy="-15" rx="5" ry="10" transform="rotate(72)"/>
+          <ellipse cx="0" cy="-15" rx="5" ry="10" transform="rotate(144)"/>
+          <ellipse cx="0" cy="-15" rx="5" ry="10" transform="rotate(216)"/>
+          <ellipse cx="0" cy="-15" rx="5" ry="10" transform="rotate(288)"/>
+          <circle r="5"/>
+        </g></g>
+
+        <path d="M 0 1000 L 40 1000 L 0 960 Z"/>
+        <path d="M 750 1000 L 710 1000 L 750 960 Z"/>
+        <circle cx="20" cy="980" r="3" fill="var(--bg-color, #fefaf5)"/>
+        <circle cx="730" cy="980" r="3" fill="var(--bg-color, #fefaf5)"/>
+      </g>
+    </symbol>
+
+    <!-- ====== NEW CHARRITA (white dress with gold details, no outline, fully opaque) ====== -->
+    <symbol id="charrita" viewBox="0 0 200 260">
+      <defs>
+        <linearGradient id="goldGlitter" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#fbe9b8"/>
+          <stop offset="40%" stop-color="#e6c896"/>
+          <stop offset="100%" stop-color="#a88450"/>
+        </linearGradient>
+        <linearGradient id="goldShine" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#fff5d8"/>
+          <stop offset="50%" stop-color="#e6c896"/>
+          <stop offset="100%" stop-color="#c9a76a"/>
+        </linearGradient>
+      </defs>
+
+      <!-- DRESS BODY (white) -->
+      <path d="M 70 130 L 130 130 L 138 175 L 62 175 Z" fill="#ffffff"/>
+
+      <!-- DRESS BOTTOM RUFFLES (3 layers in gold) -->
+      <!-- Top ruffle -->
+      <path d="M 55 175 Q 65 172 70 178 Q 75 172 82 178 Q 88 172 95 178 Q 102 172 108 178 Q 115 172 122 178 Q 128 172 135 178 Q 142 172 145 175 L 142 195 L 58 195 Z" fill="url(#goldGlitter)"/>
+      <!-- Middle ruffle -->
+      <path d="M 50 195 Q 60 192 67 198 Q 75 192 82 198 Q 90 192 100 198 Q 110 192 118 198 Q 125 192 133 198 Q 140 192 150 195 L 145 215 L 55 215 Z" fill="url(#goldShine)"/>
+      <!-- Bottom ruffle (largest) -->
+      <path d="M 45 215 Q 56 212 64 218 Q 72 212 82 218 Q 92 212 100 218 Q 108 212 118 218 Q 128 212 136 218 Q 144 212 155 215 L 150 240 L 50 240 Z" fill="url(#goldGlitter)"/>
+
+      <!-- Ruffle gold lines -->
+      <path d="M 55 178 Q 70 175 82 178 Q 95 175 108 178 Q 122 175 135 178 Q 142 175 145 178" stroke="#a88450" stroke-width="0.6" fill="none" opacity="0.6"/>
+      <path d="M 50 198 Q 67 195 82 198 Q 100 195 118 198 Q 133 195 150 198" stroke="#a88450" stroke-width="0.6" fill="none" opacity="0.6"/>
+      <path d="M 45 218 Q 64 215 82 218 Q 100 215 118 218 Q 136 215 155 218" stroke="#a88450" stroke-width="0.6" fill="none" opacity="0.6"/>
+
+      <!-- Skirt scallop bottom -->
+      <path d="M 50 240 Q 56 246 62 240 Q 68 246 74 240 Q 80 246 86 240 Q 92 246 100 240 Q 108 246 114 240 Q 120 246 126 240 Q 132 246 138 240 Q 144 246 150 240" fill="#fff" stroke="url(#goldGlitter)" stroke-width="1.5"/>
+
+      <!-- DRESS FRONT (gold horseshoe / decorative panel) -->
+      <path d="M 95 145 Q 100 140 105 145 L 108 165 Q 100 170 92 165 Z" fill="url(#goldGlitter)"/>
+      <!-- Decorative swirls below horseshoe -->
+      <path d="M 90 168 Q 95 175 100 170 Q 105 175 110 168" fill="none" stroke="url(#goldGlitter)" stroke-width="1.2"/>
+      <path d="M 85 175 Q 92 182 100 178 Q 108 182 115 175" fill="none" stroke="url(#goldGlitter)" stroke-width="1.2"/>
+
+      <!-- BLOUSE / TOP (white with gold trim) -->
+      <path d="M 75 105 Q 100 100 125 105 L 130 130 L 70 130 Z" fill="#ffffff"/>
+      <!-- Gold neckline trim -->
+      <path d="M 80 108 Q 100 105 120 108" stroke="url(#goldGlitter)" stroke-width="2" fill="none"/>
+      <path d="M 78 113 Q 100 110 122 113" stroke="url(#goldGlitter)" stroke-width="1" fill="none"/>
+      <!-- Gold cross necklace -->
+      <rect x="98" y="118" width="4" height="14" fill="url(#goldGlitter)"/>
+      <rect x="94" y="122" width="12" height="3" fill="url(#goldGlitter)"/>
+      <!-- Gold embroidery on chest -->
+      <path d="M 85 122 Q 90 125 88 130" stroke="url(#goldGlitter)" stroke-width="0.8" fill="none"/>
+      <path d="M 115 122 Q 110 125 112 130" stroke="url(#goldGlitter)" stroke-width="0.8" fill="none"/>
+
+      <!-- ARMS (white sleeves) -->
+      <path d="M 70 110 Q 60 120 62 135 L 70 130 Z" fill="#ffffff"/>
+      <path d="M 130 110 Q 140 120 138 135 L 130 130 Z" fill="#ffffff"/>
+      <!-- Hands clasped together at center -->
+      <ellipse cx="100" cy="138" rx="10" ry="6" fill="#fbd9b8"/>
+      <!-- Sleeve gold cuff -->
+      <ellipse cx="65" cy="130" rx="6" ry="3" fill="url(#goldGlitter)"/>
+      <ellipse cx="135" cy="130" rx="6" ry="3" fill="url(#goldGlitter)"/>
+
+      <!-- NECK -->
+      <rect x="93" y="93" width="14" height="13" fill="#fbd9b8"/>
+
+      <!-- FACE (large, baby-style) -->
+      <ellipse cx="100" cy="76" rx="30" ry="32" fill="#fbd9b8"/>
+
+      <!-- HAIR (long brown wavy hair on left side, no outline) -->
+      <!-- Top of head -->
+      <path d="M 70 70 Q 65 50 72 38 Q 88 28 102 32 Q 122 30 130 50 Q 134 65 130 80 L 128 88 Q 124 72 118 68 L 80 68 Q 74 72 70 88 Z" fill="#5a3a25"/>
+      <!-- Long wavy hair flowing down left side -->
+      <path d="M 70 80 Q 60 105 55 130 Q 50 155 58 175 Q 65 195 70 210 Q 75 200 73 180 Q 75 160 70 140 Q 68 120 75 100 Z" fill="#5a3a25"/>
+      <!-- Hair waves -->
+      <path d="M 60 130 Q 55 145 60 160" stroke="#3d2818" stroke-width="0.8" fill="none" opacity="0.5"/>
+      <path d="M 55 110 Q 50 125 56 140" stroke="#3d2818" stroke-width="0.8" fill="none" opacity="0.5"/>
+      <!-- Hair shine -->
+      <path d="M 75 50 Q 72 65 75 80" stroke="#7a5640" stroke-width="1" fill="none" opacity="0.7"/>
+
+      <!-- YELLOW FLOWER in hair -->
+      <g transform="translate(72, 85)">
+        <ellipse cx="0" cy="-5" rx="4" ry="6" fill="#f5dfa8"/>
+        <ellipse cx="0" cy="-5" rx="4" ry="6" fill="#f5dfa8" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-5" rx="4" ry="6" fill="#f5dfa8" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-5" rx="4" ry="6" fill="#f5dfa8" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-5" rx="4" ry="6" fill="#f5dfa8" transform="rotate(288)"/>
+        <circle r="3" fill="#e6c896"/>
+        <circle r="1.5" fill="#a88450"/>
+      </g>
+
+      <!-- EYES (large brown anime-style) -->
+      <ellipse cx="88" cy="80" rx="4.5" ry="6" fill="#3a2820"/>
+      <ellipse cx="112" cy="80" rx="4.5" ry="6" fill="#3a2820"/>
+      <!-- Eye highlights -->
+      <circle cx="89.5" cy="78" r="1.5" fill="#ffffff"/>
+      <circle cx="113.5" cy="78" r="1.5" fill="#ffffff"/>
+      <circle cx="87" cy="82" r="0.7" fill="#ffffff"/>
+      <circle cx="111" cy="82" r="0.7" fill="#ffffff"/>
+      <!-- Eyelashes -->
+      <path d="M 84 76 L 82 74" stroke="#3a2820" stroke-width="1" stroke-linecap="round"/>
+      <path d="M 92 76 L 94 74" stroke="#3a2820" stroke-width="1" stroke-linecap="round"/>
+      <path d="M 108 76 L 106 74" stroke="#3a2820" stroke-width="1" stroke-linecap="round"/>
+      <path d="M 116 76 L 118 74" stroke="#3a2820" stroke-width="1" stroke-linecap="round"/>
+
+      <!-- CHEEKS (rosy) -->
+      <ellipse cx="82" cy="90" rx="5" ry="3" fill="#f5a8a8"/>
+      <ellipse cx="118" cy="90" rx="5" ry="3" fill="#f5a8a8"/>
+
+      <!-- NOSE -->
+      <ellipse cx="100" cy="88" rx="1.5" ry="1" fill="#e6b899"/>
+
+      <!-- MOUTH (sweet smile) -->
+      <path d="M 94 98 Q 100 102 106 98" stroke="#c96a6a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M 96 99 Q 100 101 104 99" fill="#c96a6a"/>
+
+      <!-- ===== SOMBRERO (white with gold trim) ===== -->
+      <!-- Big brim ellipse -->
+      <ellipse cx="100" cy="38" rx="78" ry="13" fill="#ffffff"/>
+      <!-- Brim gold edge -->
+      <ellipse cx="100" cy="38" rx="78" ry="13" fill="none" stroke="url(#goldGlitter)" stroke-width="2"/>
+      <!-- Inner gold band on brim -->
+      <ellipse cx="100" cy="38" rx="68" ry="9" fill="none" stroke="url(#goldGlitter)" stroke-width="1.5"/>
+      <!-- Gold pattern on brim -->
+      <g fill="url(#goldGlitter)">
+        <circle cx="35" cy="38" r="1.8"/>
+        <circle cx="50" cy="36" r="1.5"/>
+        <circle cx="65" cy="38" r="1.8"/>
+        <circle cx="80" cy="36" r="1.5"/>
+        <circle cx="120" cy="36" r="1.5"/>
+        <circle cx="135" cy="38" r="1.8"/>
+        <circle cx="150" cy="36" r="1.5"/>
+        <circle cx="165" cy="38" r="1.8"/>
+      </g>
+      <!-- Crown of hat (top dome) -->
+      <ellipse cx="100" cy="22" rx="26" ry="16" fill="#ffffff"/>
+      <ellipse cx="100" cy="22" rx="26" ry="16" fill="none" stroke="url(#goldGlitter)" stroke-width="1.2"/>
+      <!-- Crown gold band -->
+      <ellipse cx="100" cy="36" rx="26" ry="5" fill="url(#goldGlitter)"/>
+      <!-- Gold decorative emblem on crown -->
+      <g transform="translate(100, 22)">
+        <path d="M -5 -6 Q 0 -8 5 -6 L 6 -2 L 5 4 Q 0 6 -5 4 L -6 -2 Z" fill="url(#goldGlitter)"/>
+        <circle r="2" fill="#ffffff"/>
+      </g>
+    </symbol>
+
+    <!-- ====== CACTUS (saguaro detailed, like reference image) ====== -->
+    <symbol id="cactus" viewBox="0 0 100 140">
+      <!-- Shadow under cactus -->
+      <ellipse cx="50" cy="135" rx="20" ry="3" fill="#7a9268" opacity="0.4"/>
+
+      <!-- Main body -->
+      <rect x="42" y="45" width="16" height="92" rx="8" fill="#7ab86a"/>
+      <!-- Vertical stripes (lighter green) -->
+      <rect x="44" y="48" width="2" height="86" fill="#a8d878" opacity="0.7"/>
+      <rect x="48" y="48" width="2" height="86" fill="#a8d878" opacity="0.7"/>
+      <rect x="52" y="48" width="2" height="86" fill="#a8d878" opacity="0.7"/>
+      <rect x="56" y="48" width="2" height="86" fill="#a8d878" opacity="0.7"/>
+      <!-- Shadow side (darker) -->
+      <rect x="42" y="48" width="3" height="86" fill="#5a8a4a" opacity="0.5"/>
+
+      <!-- Left arm -->
+      <path d="M 42 75 Q 24 75 22 60 L 22 42 Q 22 32 28 32 L 32 32 Q 38 32 38 42 L 38 60 Q 38 68 42 70 Z" fill="#7ab86a"/>
+      <rect x="26" y="40" width="1.5" height="30" fill="#a8d878" opacity="0.7"/>
+      <rect x="30" y="38" width="1.5" height="32" fill="#a8d878" opacity="0.7"/>
+      <rect x="34" y="40" width="1.5" height="30" fill="#a8d878" opacity="0.7"/>
+
+      <!-- Right top arm -->
+      <path d="M 58 60 Q 75 60 78 48 L 78 30 Q 78 22 72 22 L 68 22 Q 62 22 62 30 L 62 48 Q 62 56 58 56 Z" fill="#7ab86a"/>
+      <rect x="66" y="28" width="1.5" height="30" fill="#a8d878" opacity="0.7"/>
+      <rect x="70" y="26" width="1.5" height="32" fill="#a8d878" opacity="0.7"/>
+      <rect x="74" y="28" width="1.5" height="30" fill="#a8d878" opacity="0.7"/>
+
+      <!-- Right lower arm (smaller) -->
+      <path d="M 58 88 Q 70 88 72 78 L 72 65 Q 72 58 67 58 L 65 58 Q 62 58 62 65 L 62 78 Q 62 84 58 84 Z" fill="#7ab86a"/>
+      <rect x="65" y="62" width="1.5" height="22" fill="#a8d878" opacity="0.7"/>
+      <rect x="68" y="62" width="1.5" height="22" fill="#a8d878" opacity="0.7"/>
+
+      <!-- Spines (small dots/dashes) -->
+      <g fill="#3a5028">
+        <!-- Main body spines -->
+        <circle cx="42" cy="55" r="0.7"/>
+        <circle cx="58" cy="55" r="0.7"/>
+        <circle cx="42" cy="70" r="0.7"/>
+        <circle cx="58" cy="70" r="0.7"/>
+        <circle cx="42" cy="100" r="0.7"/>
+        <circle cx="58" cy="100" r="0.7"/>
+        <circle cx="42" cy="115" r="0.7"/>
+        <circle cx="58" cy="115" r="0.7"/>
+        <!-- Side spikes outward -->
+        <path d="M 41 50 L 38 50" stroke="#3a5028" stroke-width="0.6"/>
+        <path d="M 41 60 L 38 60" stroke="#3a5028" stroke-width="0.6"/>
+        <path d="M 59 50 L 62 50" stroke="#3a5028" stroke-width="0.6"/>
+        <path d="M 59 60 L 62 60" stroke="#3a5028" stroke-width="0.6"/>
+        <path d="M 41 100 L 38 100" stroke="#3a5028" stroke-width="0.6"/>
+        <path d="M 59 100 L 62 100" stroke="#3a5028" stroke-width="0.6"/>
+        <path d="M 41 120 L 38 120" stroke="#3a5028" stroke-width="0.6"/>
+        <path d="M 59 120 L 62 120" stroke="#3a5028" stroke-width="0.6"/>
+        <!-- Left arm spines -->
+        <path d="M 22 50 L 19 50" stroke="#3a5028" stroke-width="0.6"/>
+        <path d="M 22 60 L 19 60" stroke="#3a5028" stroke-width="0.6"/>
+        <path d="M 38 35 L 38 32" stroke="#3a5028" stroke-width="0.6"/>
+        <!-- Right arm spines -->
+        <path d="M 78 35 L 81 35" stroke="#3a5028" stroke-width="0.6"/>
+        <path d="M 78 45 L 81 45" stroke="#3a5028" stroke-width="0.6"/>
+        <path d="M 72 78 L 75 78" stroke="#3a5028" stroke-width="0.6"/>
+      </g>
+    </symbol>
+
+    <!-- ====== PIÑATA STAR (7-point, multicolor like reference) ====== -->
+    <symbol id="pinata" viewBox="0 0 140 180">
+      <!-- String -->
+      <line x1="70" y1="0" x2="70" y2="22" stroke="#5a4030" stroke-width="2"/>
+
+      <!-- Center sphere (transparent/blue) -->
+      <circle cx="70" cy="80" r="32" fill="#cfe6f0"/>
+      <circle cx="70" cy="80" r="32" fill="none" stroke="#3a3028" stroke-width="2.5"/>
+      <!-- Highlight on sphere -->
+      <ellipse cx="62" cy="70" rx="10" ry="14" fill="#ffffff" opacity="0.5"/>
+
+      <!-- 7 cone points (with two colors per cone for depth) -->
+      <!-- TOP -->
+      <path d="M 65 50 L 70 8 L 75 50 Z" fill="#fcd34d"/>
+      <path d="M 70 8 L 70 50 L 65 50 Z" fill="#e8a93c"/>
+      <path d="M 65 50 L 70 8 L 75 50 Z" fill="none" stroke="#3a3028" stroke-width="2"/>
+      <!-- Tassels at tip -->
+      <line x1="70" y1="8" x2="68" y2="3" stroke="#3a3028" stroke-width="1.5"/>
+      <line x1="70" y1="8" x2="72" y2="3" stroke="#3a3028" stroke-width="1.5"/>
+
+      <!-- TOP-LEFT -->
+      <path d="M 42 60 L 12 32 L 50 68 Z" fill="#fbb360"/>
+      <path d="M 12 32 L 42 60 L 30 50 Z" fill="#e89045"/>
+      <path d="M 42 60 L 12 32 L 50 68 Z" fill="none" stroke="#3a3028" stroke-width="2"/>
+      <line x1="12" y1="32" x2="6" y2="29" stroke="#3a3028" stroke-width="1.5"/>
+      <line x1="12" y1="32" x2="9" y2="26" stroke="#3a3028" stroke-width="1.5"/>
+
+      <!-- TOP-RIGHT -->
+      <path d="M 98 60 L 128 32 L 90 68 Z" fill="#a78bfa"/>
+      <path d="M 128 32 L 98 60 L 110 50 Z" fill="#8b6fd8"/>
+      <path d="M 98 60 L 128 32 L 90 68 Z" fill="none" stroke="#3a3028" stroke-width="2"/>
+      <line x1="128" y1="32" x2="134" y2="29" stroke="#3a3028" stroke-width="1.5"/>
+      <line x1="128" y1="32" x2="131" y2="26" stroke="#3a3028" stroke-width="1.5"/>
+
+      <!-- LEFT -->
+      <path d="M 38 80 L 0 78 L 42 92 Z" fill="#86d672"/>
+      <path d="M 0 78 L 38 80 L 20 86 Z" fill="#5fb058"/>
+      <path d="M 38 80 L 0 78 L 42 92 Z" fill="none" stroke="#3a3028" stroke-width="2"/>
+      <line x1="0" y1="78" x2="-6" y2="74" stroke="#3a3028" stroke-width="1.5"/>
+      <line x1="0" y1="78" x2="-6" y2="80" stroke="#3a3028" stroke-width="1.5"/>
+
+      <!-- RIGHT -->
+      <path d="M 102 80 L 140 78 L 98 92 Z" fill="#f5a3c7"/>
+      <path d="M 140 78 L 102 80 L 120 86 Z" fill="#e07ca8"/>
+      <path d="M 102 80 L 140 78 L 98 92 Z" fill="none" stroke="#3a3028" stroke-width="2"/>
+      <line x1="140" y1="78" x2="146" y2="74" stroke="#3a3028" stroke-width="1.5"/>
+      <line x1="140" y1="78" x2="146" y2="80" stroke="#3a3028" stroke-width="1.5"/>
+
+      <!-- BOTTOM-LEFT -->
+      <path d="M 48 102 L 18 130 L 56 110 Z" fill="#a78bfa"/>
+      <path d="M 18 130 L 48 102 L 38 118 Z" fill="#8b6fd8"/>
+      <path d="M 48 102 L 18 130 L 56 110 Z" fill="none" stroke="#3a3028" stroke-width="2"/>
+      <line x1="18" y1="130" x2="12" y2="134" stroke="#3a3028" stroke-width="1.5"/>
+      <line x1="18" y1="130" x2="14" y2="136" stroke="#3a3028" stroke-width="1.5"/>
+
+      <!-- BOTTOM-RIGHT -->
+      <path d="M 92 102 L 122 130 L 84 110 Z" fill="#fbb360"/>
+      <path d="M 122 130 L 92 102 L 102 118 Z" fill="#e89045"/>
+      <path d="M 92 102 L 122 130 L 84 110 Z" fill="none" stroke="#3a3028" stroke-width="2"/>
+      <line x1="122" y1="130" x2="128" y2="134" stroke="#3a3028" stroke-width="1.5"/>
+      <line x1="122" y1="130" x2="126" y2="136" stroke="#3a3028" stroke-width="1.5"/>
+
+      <!-- BOTTOM (cone with fringe) -->
+      <path d="M 60 110 L 70 168 L 80 110 Z" fill="#a78bfa"/>
+      <path d="M 70 168 L 60 110 L 70 130 Z" fill="#8b6fd8"/>
+      <path d="M 60 110 L 70 168 L 80 110 Z" fill="none" stroke="#3a3028" stroke-width="2"/>
+
+      <!-- Pink band/lip at bottom of body -->
+      <path d="M 60 110 L 80 110 L 78 116 L 62 116 Z" fill="#f5577a"/>
+      <path d="M 60 110 L 80 110 L 78 116 L 62 116 Z" fill="none" stroke="#3a3028" stroke-width="1.5"/>
+
+      <!-- Bottom fringe tassels -->
+      <line x1="64" y1="168" x2="62" y2="178" stroke="#3a3028" stroke-width="1.5"/>
+      <line x1="68" y1="168" x2="67" y2="180" stroke="#3a3028" stroke-width="1.5"/>
+      <line x1="72" y1="168" x2="73" y2="180" stroke="#3a3028" stroke-width="1.5"/>
+      <line x1="76" y1="168" x2="78" y2="178" stroke="#3a3028" stroke-width="1.5"/>
+    </symbol>
+
+    <!-- ====== PAPEL PICADO FLAGS (multiple colors with intricate cutouts) ====== -->
+    <symbol id="pp-flag-base" viewBox="0 0 100 130">
+      <!-- Flag shape with scalloped bottom -->
+      <path d="M 0 0 L 100 0 L 100 100
+               Q 90 100 88 105 Q 86 100 76 100
+               Q 74 105 72 100 Q 64 100 60 105
+               Q 58 100 50 100 Q 42 100 40 105
+               Q 36 100 28 100 Q 24 105 22 100
+               Q 14 100 12 105 Q 10 100 0 100 Z"
+            fill="var(--flag-color, #c96a6a)"/>
+      <!-- Center daisy cutout -->
+      <g fill="#fefaf5">
+        <circle cx="50" cy="45" r="6"/>
+        <ellipse cx="50" cy="32" rx="4" ry="7"/>
+        <ellipse cx="50" cy="58" rx="4" ry="7"/>
+        <ellipse cx="38" cy="45" rx="7" ry="4"/>
+        <ellipse cx="62" cy="45" rx="7" ry="4"/>
+        <ellipse cx="41" cy="36" rx="4" ry="5" transform="rotate(-45 41 36)"/>
+        <ellipse cx="59" cy="36" rx="4" ry="5" transform="rotate(45 59 36)"/>
+        <ellipse cx="41" cy="54" rx="4" ry="5" transform="rotate(45 41 54)"/>
+        <ellipse cx="59" cy="54" rx="4" ry="5" transform="rotate(-45 59 54)"/>
+      </g>
+      <circle cx="50" cy="45" r="2.5" fill="var(--flag-color, #c96a6a)"/>
+      <!-- Corner cutouts -->
+      <g fill="#fefaf5">
+        <circle cx="20" cy="20" r="3"/>
+        <circle cx="80" cy="20" r="3"/>
+        <circle cx="20" cy="75" r="2.5"/>
+        <circle cx="80" cy="75" r="2.5"/>
+        <ellipse cx="15" cy="45" rx="2" ry="4"/>
+        <ellipse cx="85" cy="45" rx="2" ry="4"/>
+        <!-- Top border holes -->
+        <circle cx="35" cy="10" r="1.5"/>
+        <circle cx="50" cy="10" r="1.5"/>
+        <circle cx="65" cy="10" r="1.5"/>
+        <!-- Diamonds -->
+        <rect x="25" y="62" width="3" height="3" transform="rotate(45 26.5 63.5)"/>
+        <rect x="72" y="62" width="3" height="3" transform="rotate(45 73.5 63.5)"/>
+      </g>
+    </symbol>
+
+    <!-- Map pin -->
+    <symbol id="map-pin" viewBox="0 0 24 24">
+      <path d="M12 2C7.58 2 4 5.58 4 10c0 5.25 7 12 8 12s8-6.75 8-12c0-4.42-3.58-8-8-8zm0 11a3 3 0 110-6 3 3 0 010 6z"/>
+    </symbol>
+
+    <!-- WhatsApp -->
+    <symbol id="whatsapp" viewBox="0 0 32 32">
+      <path d="M16 0C7.18 0 0 7.18 0 16c0 2.82.74 5.57 2.14 8L0 32l8.21-2.16A15.9 15.9 0 0 0 16 32c8.82 0 16-7.18 16-16S24.82 0 16 0zm0 29.3c-2.5 0-4.93-.66-7.06-1.92l-.51-.3-5.05 1.33 1.35-4.92-.33-.52A13.27 13.27 0 0 1 2.7 16C2.7 8.67 8.67 2.7 16 2.7S29.3 8.67 29.3 16 23.33 29.3 16 29.3zm7.32-9.95c-.4-.2-2.37-1.17-2.74-1.3-.37-.13-.63-.2-.9.2-.27.4-1.04 1.3-1.27 1.57-.23.27-.47.3-.87.1-.4-.2-1.69-.62-3.22-1.99-1.19-1.06-2-2.37-2.23-2.77-.23-.4-.02-.61.18-.81.18-.18.4-.47.6-.7.2-.23.27-.4.4-.67.13-.27.07-.5-.03-.7-.1-.2-.9-2.17-1.23-2.97-.32-.78-.65-.67-.9-.68-.23-.01-.5-.01-.77-.01-.27 0-.7.1-1.07.5-.37.4-1.4 1.37-1.4 3.34 0 1.97 1.43 3.87 1.63 4.14.2.27 2.83 4.32 6.85 6.05.96.41 1.7.66 2.28.85.96.3 1.83.26 2.52.16.77-.11 2.37-.97 2.7-1.9.34-.94.34-1.74.24-1.9-.1-.17-.37-.27-.77-.47z"/>
+    </symbol>
+
+    <!-- Tap -->
+    <symbol id="tap" viewBox="0 0 24 24">
+      <path d="M9 11.24V7.5a2.5 2.5 0 015 0v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74zm9.84 4.63l-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 7.5v10.74l-3.43-.72c-.08-.01-.15-.03-.24-.03-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.91-1.38z"/>
+    </symbol>
+
+    <!-- Music note -->
+    <symbol id="music-note" viewBox="0 0 24 24">
+      <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+    </symbol>
+
+    <!-- Arrow -->
+    <symbol id="arrow-down" viewBox="0 0 24 24">
+      <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" fill="currentColor"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ============= MUSIC TOGGLE ============= -->
+<button class="music-toggle" id="musicToggle" aria-label="Música">
+  <svg><use href="#music-note"/></svg>
+</button>
+
+<!-- ============= NAV DOTS ============= -->
+<div class="nav-dots" id="navDots"></div>
+
+<!-- ============= STAGE ============= -->
+<div class="stage" id="stage">
+
+  <!-- ========= SCENE 0: COVER ========= -->
+  <section class="scene cover" data-scene="0">
+    <div class="petals" data-petals="14"></div>
+
+    <!-- Multicolor papel picado top -->
+    <div class="papel-picado-string top">
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#a78bfa"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#5cb8a8"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#86d672"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#fcd34d"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#ef5b5b"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#fbb360"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#5b9be8"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#5cb8a8"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#f5a3c7"><use href="#pp-flag-base"/></svg></div>
+    </div>
+
+    <!-- Decorative cactus and piñata -->
+    <div class="deco cactus-sway" style="bottom:80px; left:-15px; width:90px; height:130px;"><svg><use href="#cactus"/></svg></div>
+    <div class="deco cactus-sway" style="bottom:80px; right:-15px; width:80px; height:115px; animation-delay:-3s"><svg><use href="#cactus"/></svg></div>
+    <div class="deco pinata-swing" style="top:90px; left:8px; width:80px; height:105px;"><svg><use href="#pinata"/></svg></div>
+    <div class="deco pinata-swing" style="top:90px; right:8px; width:80px; height:105px; animation-delay:-2s"><svg><use href="#pinata"/></svg></div>
+
+    <!-- Floral border -->
+    <div class="floral-frame" style="color:#ffffff; opacity:0.55">
+      <svg viewBox="0 0 750 1000" preserveAspectRatio="none"><use href="#floral-border"/></svg>
+    </div>
+
+    <div class="scene-content">
+      <div class="cover-title reveal d1">Estás Invitado</div>
+      <div class="cover-subtitle reveal d2">Cielito Lindo · Bautizo</div>
+
+      <div class="envelope-wrap reveal-scale" id="envelopeWrap">
+        <div class="envelope" id="envelope">
+          <div class="envelope-letter">Aria</div>
+          <div class="envelope-flap"></div>
+          <div class="envelope-seal">A</div>
+        </div>
+      </div>
+
+      <div class="open-hint reveal d4" id="openHintBtn">⟶ Toca el sobre para abrir ⟵</div>
+    </div>
+  </section>
+
+  <!-- ========= SCENE 1: NAME REVEAL ========= -->
+  <section class="scene" data-scene="1">
+    <div class="petals" data-petals="14"></div>
+
+    <!-- Multicolor papel picado -->
+    <div class="papel-picado-string top">
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#ef5b5b"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#fcd34d"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#5b9be8"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#a78bfa"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#86d672"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#fcd34d"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#fbb360"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#5cb8a8"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#f5a3c7"><use href="#pp-flag-base"/></svg></div>
+    </div>
+
+    <!-- Floral border in rose -->
+    <div class="floral-frame" style="color:var(--rose); opacity:0.78">
+      <svg viewBox="0 0 750 1000" preserveAspectRatio="none"><use href="#floral-border"/></svg>
+    </div>
+
+    <!-- Side decorations -->
+    <div class="deco cactus-sway" style="top:130px; left:-10px; width:60px; height:90px;"><svg><use href="#cactus"/></svg></div>
+    <div class="deco cactus-sway" style="top:140px; right:-10px; width:60px; height:90px; animation-delay:-3s"><svg><use href="#cactus"/></svg></div>
+
+    <div class="scene-content">
+      <div class="eyebrow reveal d1">— Cielito Lindo —</div>
+      <div class="reveal d2" style="margin-top:6px">
+        <div class="quote">
+          Con la bendición de Dios,<br>te invitamos al bautizo de
+        </div>
+      </div>
+
+      <div class="script-name reveal-scale" style="transition-delay:0.6s">Aria</div>
+      <div class="surname reveal d4" style="margin-top:6px">Camacho Bautista</div>
+
+      <!-- NEW Charrita -->
+      <div class="reveal-scale charra-float" style="transition-delay:0.8s; width:clamp(120px, 35vw, 160px); aspect-ratio: 200/260; margin-top:14px">
+        <svg viewBox="0 0 200 260"><use href="#charrita"/></svg>
+      </div>
+
+      <div class="gold-divider reveal d6" style="margin-top:10px">
+        <span class="line"></span><span class="diamond"></span><span class="line"></span>
+      </div>
+
+      <div class="quote reveal d6">
+        <em>"Como un cielito lindo llegaste a nuestras vidas,<br>
+        hoy el cielo te recibe con su bendición."</em>
+      </div>
+    </div>
+
+    <button class="scroll-hint" data-next="2">
+      Continúa
+      <svg class="arrow"><use href="#arrow-down"/></svg>
+    </button>
+  </section>
+
+  <!-- ========= SCENE 2: COUNTDOWN ========= -->
+  <section class="scene" data-scene="2">
+    <div class="petals" data-petals="14"></div>
+
+    <!-- Papel picado -->
+    <div class="papel-picado-string top">
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#fcd34d"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#ef5b5b"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#86d672"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#5b9be8"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#fbb360"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#a78bfa"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#5cb8a8"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#fcd34d"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#f5a3c7"><use href="#pp-flag-base"/></svg></div>
+    </div>
+
+    <div class="floral-frame" style="color:var(--rose-soft); opacity:0.85">
+      <svg viewBox="0 0 750 1000" preserveAspectRatio="none"><use href="#floral-border"/></svg>
+    </div>
+
+    <!-- Decorations -->
+    <div class="deco pinata-swing" style="top:80px; left:14px; width:70px; height:95px;"><svg><use href="#pinata"/></svg></div>
+    <div class="deco pinata-swing" style="top:80px; right:14px; width:70px; height:95px; animation-delay:-2s"><svg><use href="#pinata"/></svg></div>
+    <div class="deco cactus-sway" style="bottom:70px; left:-10px; width:65px; height:95px;"><svg><use href="#cactus"/></svg></div>
+    <div class="deco cactus-sway" style="bottom:70px; right:-10px; width:65px; height:95px; animation-delay:-3s"><svg><use href="#cactus"/></svg></div>
+
+    <div class="scene-content">
+      <div class="eyebrow reveal d1">Reserva la fecha</div>
+      <div class="script-title reveal d2" style="margin-top:8px">Save the Date</div>
+
+      <div class="reveal d3" style="margin:18px 0">
+        <div class="quote" style="font-size:clamp(12pt,3.5vw,14pt); font-style:normal; color:var(--rose); font-weight:500">
+          Sábado · 03 de Octubre · 2026
+        </div>
+      </div>
+
+      <div class="gold-divider reveal d3">
+        <span class="line"></span><span class="diamond"></span><span class="line"></span>
+      </div>
+
+      <div class="eyebrow reveal d4" style="color:var(--brown-soft); margin-top:14px">Faltan</div>
+
+      <div class="countdown reveal-scale" id="countdown" style="transition-delay:0.7s">
+        <div class="count-cell"><div class="count-num" id="cdDays">--</div><div class="count-label">Días</div></div>
+        <div class="count-cell"><div class="count-num" id="cdHours">--</div><div class="count-label">Horas</div></div>
+        <div class="count-cell"><div class="count-num" id="cdMins">--</div><div class="count-label">Min</div></div>
+        <div class="count-cell"><div class="count-num" id="cdSecs">--</div><div class="count-label">Seg</div></div>
+      </div>
+    </div>
+
+    <button class="scroll-hint" data-next="3">
+      Detalles
+      <svg class="arrow"><use href="#arrow-down"/></svg>
+    </button>
+  </section>
+
+  <!-- ========= SCENE 3: CEREMONY ========= -->
+  <section class="scene" data-scene="3">
+    <div class="petals" data-petals="14"></div>
+
+    <div class="papel-picado-string top">
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#5cb8a8"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#fbb360"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#ef5b5b"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#fcd34d"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#a78bfa"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#5b9be8"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#86d672"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#f5a3c7"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#fcd34d"><use href="#pp-flag-base"/></svg></div>
+    </div>
+
+    <div class="floral-frame" style="color:var(--gold); opacity:0.7">
+      <svg viewBox="0 0 750 1000" preserveAspectRatio="none"><use href="#floral-border"/></svg>
+    </div>
+
+    <!-- Side cacti -->
+    <div class="deco cactus-sway" style="top:130px; left:-10px; width:55px; height:80px;"><svg><use href="#cactus"/></svg></div>
+    <div class="deco cactus-sway" style="top:140px; right:-10px; width:55px; height:80px; animation-delay:-3s"><svg><use href="#cactus"/></svg></div>
+    <div class="deco cactus-sway" style="bottom:120px; left:-10px; width:55px; height:80px; animation-delay:-2s"><svg><use href="#cactus"/></svg></div>
+    <div class="deco cactus-sway" style="bottom:120px; right:-10px; width:55px; height:80px; animation-delay:-4s"><svg><use href="#cactus"/></svg></div>
+
+    <div class="scene-content">
+      <div class="reveal-scale d1">
+        <div class="detail-card">
+          <div class="detail-icon-circle">⛪</div>
+          <div class="detail-section-label">Ceremonia Religiosa</div>
+          <div class="detail-place">Templo La Medalla Milagrosa</div>
+          <div class="detail-address">
+            C. Lago de Pátzcuaro 397<br>
+            Ventura Puente · 58020<br>
+            Morelia, Michoacán
+          </div>
+          <a class="map-btn" href="#TEMPLO_MAPS_LINK" target="_blank" rel="noopener">
+            <svg><use href="#map-pin"/></svg>
+            Ver ubicación
+          </a>
+        </div>
+      </div>
+
+      <div class="gold-divider reveal d3" style="margin:16px 0">
+        <span class="line"></span><span class="diamond"></span><span class="line"></span>
+      </div>
+
+      <div class="reveal-scale d3">
+        <div class="detail-card">
+          <div class="detail-icon-circle">✦</div>
+          <div class="detail-section-label">Recepción</div>
+          <div class="detail-place">Salón Santa Bárbara</div>
+          <div class="detail-address">
+            C. Sierra de Nahuatzen 592<br>
+            Santiaguito · 58110<br>
+            Morelia, Michoacán
+          </div>
+          <a class="map-btn" href="#SALON_MAPS_LINK" target="_blank" rel="noopener">
+            <svg><use href="#map-pin"/></svg>
+            Ver ubicación
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <button class="scroll-hint" data-next="4">
+      Padrinos
+      <svg class="arrow"><use href="#arrow-down"/></svg>
+    </button>
+  </section>
+
+  <!-- ========= SCENE 4: FAMILY ========= -->
+  <section class="scene" data-scene="4">
+    <div class="petals" data-petals="14"></div>
+
+    <div class="papel-picado-string top">
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#a78bfa"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#5cb8a8"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#86d672"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#fcd34d"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#ef5b5b"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#fbb360"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#5b9be8"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#5cb8a8"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#f5a3c7"><use href="#pp-flag-base"/></svg></div>
+    </div>
+
+    <div class="floral-frame" style="color:var(--rose); opacity:0.78">
+      <svg viewBox="0 0 750 1000" preserveAspectRatio="none"><use href="#floral-border"/></svg>
+    </div>
+
+    <!-- Decorations -->
+    <div class="deco pinata-swing" style="top:90px; left:50%; transform:translateX(-50%); width:75px; height:100px;"><svg><use href="#pinata"/></svg></div>
+    <div class="deco cactus-sway" style="bottom:120px; left:-10px; width:60px; height:90px;"><svg><use href="#cactus"/></svg></div>
+    <div class="deco cactus-sway" style="bottom:120px; right:-10px; width:60px; height:90px; animation-delay:-3s"><svg><use href="#cactus"/></svg></div>
+
+    <div class="scene-content">
+      <div class="script-title reveal d1">Familia</div>
+      <div class="eyebrow reveal d1" style="margin-top:4px">Quienes te reciben con amor</div>
+
+      <div class="people-row">
+        <div class="people-block reveal-scale d2">
+          <div class="people-label">Sus Papás</div>
+          <div class="people-names">
+            José Carlos Camacho López
+            <span class="people-amp">&amp;</span>
+            Elitania Bautista Chávez
+          </div>
+        </div>
+        <div class="people-block reveal-scale d4">
+          <div class="people-label">Sus Padrinos</div>
+          <div class="people-names">
+            Karina Marisol Bautista Chávez
+            <span class="people-amp">&amp;</span>
+            Fulanito López Medina
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="scroll-hint" data-next="5">
+      Confirmar
+      <svg class="arrow"><use href="#arrow-down"/></svg>
+    </button>
+  </section>
+
+  <!-- ========= SCENE 5: RSVP ========= -->
+  <section class="scene" data-scene="5">
+    <div class="petals" data-petals="14"></div>
+
+    <div class="papel-picado-string top">
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#ef5b5b"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#fbb360"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#fcd34d"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#86d672"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#5cb8a8"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#5b9be8"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#a78bfa"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#f5a3c7"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#fcd34d"><use href="#pp-flag-base"/></svg></div>
+    </div>
+    <div class="papel-picado-string bottom">
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#fcd34d"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#ef5b5b"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#86d672"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#a78bfa"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#5b9be8"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#fbb360"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#5cb8a8"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#f5a3c7"><use href="#pp-flag-base"/></svg></div>
+      <div class="pp-flag"><svg viewBox="0 0 100 130" style="--flag-color:#fcd34d"><use href="#pp-flag-base"/></svg></div>
+    </div>
+
+    <div class="floral-frame" style="color:var(--rose-soft); opacity:0.85">
+      <svg viewBox="0 0 750 1000" preserveAspectRatio="none"><use href="#floral-border"/></svg>
+    </div>
+
+    <!-- Decorations -->
+    <div class="deco pinata-swing" style="top:110px; left:14px; width:65px; height:90px;"><svg><use href="#pinata"/></svg></div>
+    <div class="deco pinata-swing" style="top:110px; right:14px; width:65px; height:90px; animation-delay:-1.5s"><svg><use href="#pinata"/></svg></div>
+
+    <div class="scene-content">
+      <div class="script-title reveal d1">Confirma tu Asistencia</div>
+
+      <div class="rsvp-deadline reveal d2">
+        Te pedimos confirmar antes del<br>
+        <strong>26 de septiembre de 2026</strong>
+      </div>
+
+      <a class="whatsapp-btn reveal-scale d3" href="#WHATSAPP_LINK" target="_blank" rel="noopener" id="whatsappBtn">
+        <svg><use href="#whatsapp"/></svg>
+        Confirmar por WhatsApp
+        <svg class="tap-icon"><use href="#tap"/></svg>
+      </a>
+
+      <div class="rsvp-phone reveal d4">📱 443 306 8739</div>
+
+      <div class="reveal-scale charra-float" style="transition-delay:1s; width:clamp(95px, 28vw, 130px); aspect-ratio: 200/260; margin-top:20px">
+        <svg viewBox="0 0 200 260"><use href="#charrita"/></svg>
+      </div>
+
+      <div class="reveal d6" style="margin-top:14px">
+        <div class="script-title" style="font-size:clamp(26pt, 8vw, 32pt)">¡Gracias!</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<audio id="bgMusic" loop preload="none">
+  <source src="cielito-lindo.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const EVENT_DATE = new Date('2026-10-03T12:00:00-06:00');
+
+  const stage = document.getElementById('stage');
+  const scenes = Array.from(document.querySelectorAll('.scene'));
+
+  function goToScene(idx) {
+    const target = scenes[idx];
+    if (!target) return;
+    stage.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+  }
+
+  function getCurrentSceneIdx() {
+    const scrollTop = stage.scrollTop;
+    const h = stage.clientHeight;
+    return Math.round(scrollTop / h);
+  }
+
+  // Envelope
+  const envelope = document.getElementById('envelope');
+  const envelopeWrap = document.getElementById('envelopeWrap');
+  const openHintBtn = document.getElementById('openHintBtn');
+
+  function openEnvelopeAndContinue() {
+    if (envelope.classList.contains('open')) {
+      goToScene(1);
+      return;
+    }
+    envelope.classList.add('open');
+    setTimeout(() => goToScene(1), 1300);
+    const audio = document.getElementById('bgMusic');
+    if (audio) {
+      audio.play().then(() => {
+        document.getElementById('musicToggle').classList.add('playing');
+      }).catch(() => {});
+    }
+  }
+
+  envelopeWrap.addEventListener('click', openEnvelopeAndContinue);
+  openHintBtn.addEventListener('click', (e) => { e.stopPropagation(); openEnvelopeAndContinue(); });
+
+  // Scroll hints
+  document.querySelectorAll('.scroll-hint').forEach(hint => {
+    hint.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      goToScene(parseInt(hint.dataset.next, 10));
+    });
+  });
+
+  // Active scene tracking
+  function updateActiveScene() {
+    const idx = getCurrentSceneIdx();
+    scenes.forEach((s, i) => s.classList.toggle('active', i === idx));
+    document.querySelectorAll('.dot').forEach(d => {
+      d.classList.toggle('active', parseInt(d.dataset.scene, 10) === idx);
+    });
+  }
+
+  let scrollTimeout;
+  stage.addEventListener('scroll', () => {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(updateActiveScene, 80);
+  });
+
+  scenes[0].classList.add('active');
+
+  // Nav dots
+  const navDotsEl = document.getElementById('navDots');
+  scenes.forEach((s, i) => {
+    if (i === 0) return;
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    dot.dataset.scene = i;
+    dot.addEventListener('click', () => goToScene(i));
+    navDotsEl.appendChild(dot);
+  });
+
+  // Countdown
+  function updateCountdown() {
+    const diff = EVENT_DATE - new Date();
+    if (diff <= 0) {
+      ['cdDays','cdHours','cdMins','cdSecs'].forEach(id => document.getElementById(id).textContent = '0');
+      return;
+    }
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000) / 60000);
+    const secs  = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cdDays').textContent  = days;
+    document.getElementById('cdHours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('cdMins').textContent  = String(mins).padStart(2, '0');
+    document.getElementById('cdSecs').textContent  = String(secs).padStart(2, '0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // Petals
+  document.querySelectorAll('[data-petals]').forEach(container => {
+    const count = parseInt(container.dataset.petals, 10) || 12;
+    for (let i = 0; i < count; i++) {
+      const petal = document.createElement('div');
+      petal.className = 'petal';
+      petal.style.left = (Math.random() * 100) + '%';
+      petal.style.animationDuration = (8 + Math.random() * 8) + 's';
+      petal.style.animationDelay = (Math.random() * 10) + 's';
+      petal.style.transform = `scale(${0.6 + Math.random() * 0.8})`;
+      container.appendChild(petal);
+    }
+  });
+
+  // Music
+  const musicToggle = document.getElementById('musicToggle');
+  const audio = document.getElementById('bgMusic');
+  musicToggle.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play().then(() => musicToggle.classList.add('playing'))
+        .catch(() => alert('Coloca un archivo "cielito-lindo.mp3" junto a este HTML para activar la música.'));
+    } else {
+      audio.pause();
+      musicToggle.classList.remove('playing');
+    }
+  });
+
+  // Keyboard nav
+  document.addEventListener('keydown', (e) => {
+    const idx = getCurrentSceneIdx();
+    if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+      e.preventDefault();
+      goToScene(idx + 1);
+    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+      e.preventDefault();
+      goToScene(idx - 1);
+    }
+  });
+
+  updateActiveScene();
+</script>
+
+</body>
+</html>
