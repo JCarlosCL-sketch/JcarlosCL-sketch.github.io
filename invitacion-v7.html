@@ -488,7 +488,9 @@
     border: 1px solid var(--gold);
     border-radius: 14px;
     padding: clamp(14px, 4vw, 18px) clamp(16px, 4.5vw, 22px);
-    max-width: min(320px, 92%);
+    /* Use explicit width so both detail cards (Ceremonia + Recepción) match
+       size regardless of how long their address text happens to be. */
+    width: min(320px, 92%);
     margin: 6px auto;
     box-shadow: 0 6px 16px rgba(60, 20, 30, 0.25);
   }
@@ -537,8 +539,9 @@
   .map-btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
-    padding: clamp(9px, 2.5vw, 11px) clamp(16px, 5vw, 22px);
+    padding: clamp(9px, 2.5vw, 11px) clamp(14px, 4vw, 22px);
     border: none;
     border-radius: 999px;
     background: linear-gradient(135deg, var(--gold-light), var(--gold));
@@ -553,6 +556,9 @@
     box-shadow: 0 4px 12px rgba(80, 40, 10, 0.3);
     transition: transform 0.3s ease;
     min-height: 44px;
+    /* Keep the button label on a single line so both detail cards have the
+       same internal layout (otherwise one card grows taller than the other). */
+    white-space: nowrap;
   }
 
   .map-btn:hover, .map-btn:active { transform: translateY(-2px); }
