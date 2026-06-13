@@ -92,10 +92,27 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: clamp(120px, 22vw, 160px) var(--pad-x);
+    /* `safe center` keeps content vertically centered when it fits, but
+       falls back to flex-start when content overflows the viewport, so on
+       short screens the top of the content stays visible (instead of being
+       clipped above with the bottom hidden behind the scroll-hint). */
+    justify-content: safe center;
+    /* Extra bottom padding leaves room for the floating scroll-hint button
+       at the bottom of every scene, so detail cards / content can never
+       overlap the navigation pill on small devices. */
+    padding: clamp(110px, 20vw, 150px) var(--pad-x) clamp(170px, 30vw, 210px);
     text-align: center;
+    /* Allow each scene to scroll its own content internally when the layout
+       (cards, family blocks, etc.) is taller than the viewport — common on
+       phones with the URL bar visible or in landscape. Stops the gesture
+       from bubbling so the outer stage doesn't snap to the next scene. */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
   }
+
+  .scene-content::-webkit-scrollbar { display: none; }
+  .scene-content { scrollbar-width: none; }
 
   /* ============= FALLING CONFETTI ============= */
   .confetti-layer {
@@ -651,7 +668,7 @@
   /* ============= NAV / SCROLL HINT ============= */
   .scroll-hint {
     position: absolute;
-    bottom: clamp(80px, 16vw, 110px);
+    bottom: max(clamp(60px, 12vw, 90px), env(safe-area-inset-bottom));
     left: 50%;
     transform: translateX(-50%);
     z-index: 20;
@@ -885,7 +902,7 @@
         </div>
       </div>
 
-      <div class="gold-divider reveal d3" style="margin:16px 0">
+      <div class="gold-divider reveal d3" style="margin:10px 0">
         <span class="line"></span><span class="diamond"></span><span class="line"></span>
       </div>
 
