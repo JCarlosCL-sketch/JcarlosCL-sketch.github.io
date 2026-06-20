@@ -513,6 +513,9 @@
     /* Keep "Ceremonia Religiosa" on a single line — the wide letter-spacing
        was pushing the second word onto a new line. */
     white-space: nowrap;
+    /* letter-spacing adds trailing space after the last letter, which shifts
+       the text right of center. text-indent of the same amount re-centers it. */
+    text-indent: clamp(1px, 0.6vw, 2.5px);
   }
 
   .detail-place {
