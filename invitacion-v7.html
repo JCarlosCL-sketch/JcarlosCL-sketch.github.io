@@ -41,10 +41,12 @@
        through a nested fixed-position container which Samsung Internet
        handles unreliably. */
     height: 100%;
-    /* `proximity` (not `mandatory`) still snaps each scene into place on
-       swipe, but doesn't trap the scroll gesture — this fixes pull-to-refresh
-       getting stuck/jittery when the user pulls down at the top of the page. */
-    scroll-snap-type: y proximity;
+    /* NO scroll-snap on the document root. Native scroll-snap at the root
+       level conflicts with pull-to-refresh on iOS Safari and in-app browsers
+       (WhatsApp/Instagram), leaving the page stuck half-scrolled when the
+       user pulls down to reload. Each scene is full-height (100dvh) so it
+       still reads as a distinct page, and the "Continúa"/nav buttons perform
+       a smooth JS scroll to each scene. Free-swipe just scrolls normally. */
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
   }
@@ -72,13 +74,8 @@
     height: 100dvh;
     min-height: 600px;
     overflow: hidden;
-    /* Snap each scene to the viewport when scrolling. Native browser
-       behavior — works identically on iOS Safari, Samsung Internet, Chrome
-       Android, and desktop. */
-    scroll-snap-align: start;
-    /* Explicitly allow vertical pan gestures so Samsung Internet / Chrome
-       Android route swipe events to the document scroller without competing
-       with the floating decorations or confetti layer. */
+    /* Allow vertical pan gestures so swipe events reach the document scroller
+       without competing with the floating decorations or confetti layer. */
     touch-action: pan-y;
     /* Default frame for scenes 2+ (uses image B). The cover (scene 0) overrides
        this with image A below. */
