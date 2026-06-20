@@ -561,15 +561,22 @@
     /* Keep the button label on a single line so both detail cards have the
        same internal layout (otherwise one card grows taller than the other). */
     white-space: nowrap;
-    /* Center the button within the card and give it a consistent footprint
-       so both Ceremonia + Recepción tarjetas look identical. */
-    width: fit-content;
-    max-width: 100%;
+    /* Full-width button so both Ceremonia + Recepción cards have an identical
+       footprint. (fit-content made each button size to its own text, so the
+       shorter address card rendered a narrower button.) */
+    width: 100%;
     margin: 0 auto;
   }
 
   .map-btn:hover, .map-btn:active { transform: translateY(-2px); }
-  .map-btn svg { width: 14px; height: 14px; fill: var(--brown); }
+  .map-btn svg {
+    width: 14px;
+    height: 14px;
+    fill: var(--brown);
+    /* Prevent the pin icon from being squeezed to 0 width inside the flex
+       button — without this it can disappear on some cards/browsers. */
+    flex-shrink: 0;
+  }
 
   /* ============= PEOPLE ============= */
   .people-row {
