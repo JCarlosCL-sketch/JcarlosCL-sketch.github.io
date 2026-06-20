@@ -41,7 +41,10 @@
        through a nested fixed-position container which Samsung Internet
        handles unreliably. */
     height: 100%;
-    scroll-snap-type: y mandatory;
+    /* `proximity` (not `mandatory`) still snaps each scene into place on
+       swipe, but doesn't trap the scroll gesture — this fixes pull-to-refresh
+       getting stuck/jittery when the user pulls down at the top of the page. */
+    scroll-snap-type: y proximity;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
   }
@@ -73,7 +76,6 @@
        behavior — works identically on iOS Safari, Samsung Internet, Chrome
        Android, and desktop. */
     scroll-snap-align: start;
-    scroll-snap-stop: always;
     /* Explicitly allow vertical pan gestures so Samsung Internet / Chrome
        Android route swipe events to the document scroller without competing
        with the floating decorations or confetti layer. */
