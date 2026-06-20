@@ -505,11 +505,14 @@
   .detail-section-label {
     font-family: 'Montserrat', sans-serif;
     font-size: clamp(8pt, 2.0vw, 6.5pt);
-    letter-spacing: clamp(1px, 1vw, 4px);
+    letter-spacing: clamp(1px, 0.6vw, 2.5px);
     text-transform: uppercase;
     color: var(--rose-deep);
     font-weight: 600;
     margin-bottom: 6px;
+    /* Keep "Ceremonia Religiosa" on a single line — the wide letter-spacing
+       was pushing the second word onto a new line. */
+    white-space: nowrap;
   }
 
   .detail-place {
