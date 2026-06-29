@@ -480,11 +480,12 @@
     background: rgba(255, 255, 255, 0.95);
     border: 1px solid var(--gold);
     border-radius: 14px;
-    padding: clamp(14px, 4vw, 18px) clamp(16px, 4.5vw, 22px);
+    padding: clamp(12px, 3.4vw, 16px) clamp(16px, 4.5vw, 22px);
     /* Use explicit width so both detail cards (Ceremonia + Recepción) match
-       size regardless of how long their address text happens to be. */
-    width: min(320px, 92%);
-    margin: 6px auto;
+       size regardless of how long their address text happens to be. Slightly
+       wider now to accommodate the event time line without growing taller. */
+    width: min(340px, 94%);
+    margin: 5px auto;
     box-shadow: 0 6px 16px rgba(60, 20, 30, 0.25);
   }
 
@@ -532,6 +533,16 @@
     font-style: italic;
     color: var(--brown-soft);
     line-height: 1.4;
+    margin-bottom: 6px;
+  }
+
+  /* Event time — compact single line with clock icon, doesn't add much height */
+  .detail-time {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(9pt, 2.6vw, 11pt);
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--rose-deep);
     margin-bottom: 10px;
   }
 
@@ -974,6 +985,7 @@
             Ventura Puente · 58020<br>
             Morelia, Michoacán
           </div>
+          <div class="detail-time">🕛 12:00 pm</div>
           <a class="map-btn" href="https://www.google.com/maps/place/Parroquia+de+la+Medalla+Milagrosa/@19.6919747,-101.1891232,19.5z/data=!4m15!1m8!3m7!1s0x842d0ddf40120be3:0xff546dddae52f720!2sC.+Lago+de+Patzcuaro+397,+Ventura+Puente,+58020+Morelia,+Mich.!3b1!8m2!3d19.6921141!4d-101.188642!16s%2Fg%2F11hbsp6v74!3m5!1s0x842d0ddf407cdab3:0x4dd47419680d9c8b!8m2!3d19.6921595!4d-101.1889861!16s%2Fg%2F11b7hp91ys?entry=ttu&g_ep=EgoyMDI2MDYxNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">
             <svg><use href="#map-pin"/></svg>
             Ver ubicación
@@ -995,6 +1007,7 @@
             Santiaguito · 58110<br>
             Morelia, Michoacán
           </div>
+          <div class="detail-time">🕑 2:00 pm</div>
           <a class="map-btn" href="https://www.google.com/maps/place/Sal%C3%B3n+Santa+B%C3%A1rbara/@19.718781,-101.1955227,18.5z/data=!4m14!1m7!3m6!1s0x842d0e42d13a22f7:0x1aa7be49237390c6!2zU2Fsw7NuIFNhbnRhIELDoXJiYXJh!8m2!3d19.7191122!4d-101.1952504!16s%2Fg%2F11c1sk481c!3m5!1s0x842d0e42d13a22f7:0x1aa7be49237390c6!8m2!3d19.7191122!4d-101.1952504!16s%2Fg%2F11c1sk481c?entry=ttu&g_ep=EgoyMDI2MDYxNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">
             <svg><use href="#map-pin"/></svg>
             Ver ubicación
